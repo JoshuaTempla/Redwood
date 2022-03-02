@@ -7,4 +7,4 @@ from django.views.generic import View
 # Create your views here.
 
 def IndexView(request):
-    return render(request, 'Index.html', {})
+    return render(request, 'index.html', {})
