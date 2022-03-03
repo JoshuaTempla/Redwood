@@ -1,4 +1,4 @@
-
+{% load static %}
 
 <!DOCTYPE html>
 <html style="font-size: 16px;">
@@ -10,10 +10,10 @@
   <meta name="description" content="">
   <meta name="page_type" content="np-template-header-footer-from-plugin">
   <title>CONTACT US</title>
-  <link rel="stylesheet" href="nicepage.css" media="screen">
-  <link rel="stylesheet" href="CONTACT-US.css" media="screen">
-  <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
-  <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+  <link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
+  <link rel="stylesheet" href="{% static 'css/Contact.css' %}" media="screen">
+  <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script>
+  <script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>
   <meta name="generator" content="Nicepage 4.6.3, nicepage.com">
   <link id="u-theme-google-font" rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
@@ -37,9 +37,9 @@
 <body class="u-body u-xl-mode">
   <header class="u-clearfix u-header u-header" id="sec-f0e0">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <a href="HOME.html" data-page-id="57438736" class="u-image u-logo u-image-1" data-image-width="402"
+      <a href="{% url 'Home' %}" data-page-id="57438736" class="u-image u-logo u-image-1" data-image-width="402"
         data-image-height="208" title="HOME">
-        <img src="images/MicrosoftTeams-image1.png" class="u-logo-image u-logo-image-1">
+        <img src="{% static 'images/MicrosoftTeams-image1.png' %}" class="u-logo-image u-logo-image-1">
       </a>
       <a href="https://nicepage.com/css-templates"
         class="u-border-none u-btn u-btn-round u-button-style u-custom-color-13 u-custom-font u-font-roboto u-radius-10 u-text-body-color u-btn-1">Reservation</a>
@@ -64,11 +64,11 @@
           <ul class="u-custom-font u-font-roboto u-nav u-unstyled u-nav-1">
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-hover-grey-90"
-                href="ABOUT-US.html" style="padding: 6px 20px;">ABOUT US</a>
+                href="{% url 'About' %}" style="padding: 6px 20px;">About Us</a>
             </li>
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-hover-grey-90"
-                href="CONTACT-US.html" style="padding: 6px 20px;">CONTACT US</a>
+                href="{% url 'Contact' %}" style="padding: 6px 20px;">Contact Us</a>
             </li>
           </ul>
         </div>
@@ -77,11 +77,11 @@
             <div class="u-inner-container-layout u-sidenav-overflow">
               <div class="u-menu-close"></div>
               <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="ABOUT-US.html"
-                    style="padding: 6px 20px;">ABOUT US</a>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="{% url 'About' %}"
+                    style="padding: 6px 20px;">About Us</a>
                 </li>
-                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="CONTACT-US.html"
-                    style="padding: 6px 20px;">CONTACT US</a>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'Contact' %}"
+                    style="padding: 6px 20px;">Contact Us</a>
                 </li>
               </ul>
             </div>
@@ -111,7 +111,7 @@
           <ul class="u-custom-font u-font-roboto u-nav u-spacing-0 u-unstyled u-nav-3">
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-grey-75 u-border-hover-grey-75 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-black u-text-hover-grey-90"
-                href="HOME.html" style="padding: 6px 20px;">HOME</a>
+                href="{% url 'Home' %}" style="padding: 6px 20px;">Home</a>
             </li>
           </ul>
         </div>
@@ -120,8 +120,8 @@
             <div class="u-inner-container-layout u-sidenav-overflow">
               <div class="u-menu-close"></div>
               <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4">
-                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="HOME.html"
-                    style="padding: 6px 20px;">HOME</a>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'Home' %}"
+                    style="padding: 6px 20px;">Home</a>
                 </li>
               </ul>
             </div>
@@ -133,7 +133,7 @@
   </header>
   <section class="u-clearfix u-white u-section-1" id="carousel_0db1">
     <img class="u-image u-image-default u-image-1" data-image-width="1600" data-image-height="1067"
-      src="images/pexels-fauxels-3184311.jpg" data-animation-name="customAnimationIn" data-animation-duration="1750"
+      src="{% static 'images/pexels-fauxels-3184311.jpg' %}" data-animation-name="customAnimationIn" data-animation-duration="1750"
       data-animation-out="0">
     <div class="u-container-style u-custom-color-19 u-group u-group-1" data-animation-name="customAnimationIn"
       data-animation-duration="2000" data-animation-delay="250" data-animation-out="0">
@@ -194,14 +194,14 @@
 
 
   <section class="u-backlink u-clearfix u-grey-80">
-    <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
-      <span>Website Templates</span>
+    <a class="u-link" href="{% url 'Home' %}" target="">
+      <span>Redwood Civic Center (Reservation System)</span>
     </a>
     <p class="u-text">
-      <span>created with</span>
+      <span>created by</span>
     </p>
-    <a class="u-link" href="" target="_blank">
-      <span>Website Builder Software</span>
+    <a class="u-link" href="{% url 'About' %}" target="">
+      <span>Templa, Molina and Anoos</span>
     </a>.
   </section>
 </body>

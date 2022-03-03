@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html style="font-size: 16px;">
 
@@ -7,11 +9,11 @@
   <meta name="keywords" content="You can choose the type of conference room you want">
   <meta name="description" content="">
   <meta name="page_type" content="np-template-header-footer-from-plugin">
-  <title>ROOMS</title>
-  <link rel="stylesheet" href="nicepage.css" media="screen">
-  <link rel="stylesheet" href="ROOMS.css" media="screen">
-  <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
-  <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+  <title>Civic Conference Rooms</title>
+  <link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
+  <link rel="stylesheet" href="{% static 'css/Rooms.css' %}" media="screen">
+  <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script>
+  <script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>
   <meta name="generator" content="Nicepage 4.6.3, nicepage.com">
   <link id="u-theme-google-font" rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
@@ -39,9 +41,9 @@
 <body class="u-body u-xl-mode">
   <header class="u-clearfix u-header u-header" id="sec-f0e0">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <a href="HOME.html" data-page-id="57438736" class="u-image u-logo u-image-1" data-image-width="402"
+      <a href="{% url 'Home' %}" data-page-id="57438736" class="u-image u-logo u-image-1" data-image-width="402"
         data-image-height="208" title="HOME">
-        <img src="images/MicrosoftTeams-image1.png" class="u-logo-image u-logo-image-1">
+        <img src="{% static 'images/MicrosoftTeams-image1.png' %}" class="u-logo-image u-logo-image-1">
       </a>
       <a href="https://nicepage.com/css-templates"
         class="u-border-none u-btn u-btn-round u-button-style u-custom-color-13 u-custom-font u-font-roboto u-radius-10 u-text-body-color u-btn-1">Reservation</a>
@@ -66,11 +68,11 @@
           <ul class="u-custom-font u-font-roboto u-nav u-unstyled u-nav-1">
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-hover-grey-90"
-                href="ABOUT-US.html" style="padding: 6px 20px;">ABOUT US</a>
+                href="{% url 'About' %}" style="padding: 6px 20px;">About Us</a>
             </li>
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-hover-grey-90"
-                href="CONTACT-US.html" style="padding: 6px 20px;">CONTACT US</a>
+                href="{% url 'Contact' %}" style="padding: 6px 20px;">Contact Us</a>
             </li>
           </ul>
         </div>
@@ -79,11 +81,11 @@
             <div class="u-inner-container-layout u-sidenav-overflow">
               <div class="u-menu-close"></div>
               <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="ABOUT-US.html"
-                    style="padding: 6px 20px;">ABOUT US</a>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="{% url 'About' %}"
+                    style="padding: 6px 20px;">About Us</a>
                 </li>
-                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="CONTACT-US.html"
-                    style="padding: 6px 20px;">CONTACT US</a>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'Contact' %}"
+                    style="padding: 6px 20px;">Contact Us</a>
                 </li>
               </ul>
             </div>
@@ -113,7 +115,7 @@
           <ul class="u-custom-font u-font-roboto u-nav u-spacing-0 u-unstyled u-nav-3">
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-grey-75 u-border-hover-grey-75 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-black u-text-hover-grey-90"
-                href="HOME.html" style="padding: 6px 20px;">HOME</a>
+                href="{% url 'Home' %}" style="padding: 6px 20px;">Home</a>
             </li>
           </ul>
         </div>
@@ -122,8 +124,8 @@
             <div class="u-inner-container-layout u-sidenav-overflow">
               <div class="u-menu-close"></div>
               <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4">
-                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="HOME.html"
-                    style="padding: 6px 20px;">HOME</a>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'Home' %}"
+                    style="padding: 6px 20px;">Home</a>
                 </li>
               </ul>
             </div>
@@ -147,10 +149,10 @@
       <div class="u-container-style u-expanded-width u-group u-shape-rectangle u-group-1"
         data-animation-name="customAnimationIn" data-animation-duration="2000">
         <div class="u-container-layout u-container-layout-1">
-          <img class="u-image u-image-default u-image-1" src="images/House-Arryn-Main-Shield.PNG.png" alt=""
+          <img class="u-image u-image-default u-image-1" src="{% static 'images/House-Arryn-Main-Shield.PNG.png' %}" alt=""
             data-image-width="400" data-image-height="480">
           <h1 class="u-custom-font u-font-roboto u-text u-text-default u-text-1">ROOM TYPE</h1>
-          <h1 class="u-custom-font u-font-playfair-display u-text u-text-default u-text-2">ROOM ARRYN&nbsp;</h1>
+          <h1 class="u-custom-font u-font-playfair-display u-text u-text-default u-text-2">ROOM ARRYN (A) &nbsp;</h1>
           <p class="u-align-left u-text u-text-black u-text-3"> Room Arryn of the Eyrie&nbsp;is one of the&nbsp;Great
             Rooms of&nbsp;Redwood, and is the principal noble house in the&nbsp;Vale of Arryn. Their main seat is
             the&nbsp;Eyrie, which is considered impregnable.</p>
@@ -168,11 +170,11 @@
       <div class="u-container-style u-expanded-width u-group u-shape-rectangle u-group-1"
         data-animation-name="customAnimationIn" data-animation-duration="2000">
         <div class="u-container-layout u-container-layout-1">
-          <img class="u-image u-image-default u-image-1" src="images/1200px-House_Baratheon.svg.png" alt=""
+          <img class="u-image u-image-default u-image-1" src="{% static 'images/1200px-House_Baratheon.svg.png' %}" alt=""
             data-image-width="1200" data-image-height="1320">
           <h1 class="u-align-right u-custom-font u-font-roboto u-text u-text-default u-text-1">ROOM TYPE</h1>
           <h1 class="u-align-right u-custom-font u-font-playfair-display u-text u-text-default u-text-2">ROOM
-            BARATHEON&nbsp;</h1>
+            BARATHEON (B) &nbsp;</h1>
           <p class="u-align-right u-text u-text-black u-text-3"> Room Baratheon of Storm's End is one of the Great
             Houses of Redwood, and is the principal house in the stormlands, which they rule as Lords Paramount of the
             Stormlands.</p>
@@ -190,10 +192,10 @@
       <div class="u-container-style u-expanded-width u-group u-shape-rectangle u-group-1"
         data-animation-name="customAnimationIn" data-animation-duration="2000">
         <div class="u-container-layout u-container-layout-1">
-          <img class="u-image u-image-default u-image-1" src="images/545px-House_Clegane.svg.png" alt=""
+          <img class="u-image u-image-default u-image-1" src="{% static 'images/545px-House_Clegane.svg.png' %}" alt=""
             data-image-width="545" data-image-height="600">
           <h1 class="u-custom-font u-font-roboto u-text u-text-default u-text-1">ROOM TYPE</h1>
-          <h1 class="u-custom-font u-font-playfair-display u-text u-text-default u-text-2">ROOM CLEGANE</h1>
+          <h1 class="u-custom-font u-font-playfair-display u-text u-text-default u-text-2">ROOM CLEGANE (C) </h1>
           <p class="u-align-left u-text u-text-black u-text-3"> Room Clegane is a room of landed knights in the
             Redwoodlands. They hold fealty to House Lannister of Casterly Rock, and are among their primary bannermen.
             Their lands are southeast of the Rock and include a towerhouse.</p>
@@ -213,8 +215,8 @@
         <div class="u-container-layout u-container-layout-1">
           <h1 class="u-align-right u-custom-font u-font-roboto u-text u-text-default u-text-1">ROOM TYPE</h1>
           <h1 class="u-align-right u-custom-font u-font-playfair-display u-text u-text-default u-text-2">ROOM
-            DAYNE&nbsp;</h1>
-          <img class="u-image u-image-default u-image-1" src="images/1200px-House_Dayne.svg.png" alt=""
+            DAYNE (D) &nbsp;</h1>
+          <img class="u-image u-image-default u-image-1" src="{% static 'images/1200px-House_Dayne.svg.png' %}" alt=""
             data-image-width="1200" data-image-height="1200">
           <p class="u-align-right u-text u-text-black u-text-3"> Room Dayne of Starfall is a noble house from Starfall
             in Redwood. They are among the principal rooms sworn to House Martell. The Sword of the Morning is a title
@@ -232,14 +234,14 @@
 
 
   <section class="u-backlink u-clearfix u-grey-80">
-    <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
-      <span>Website Templates</span>
+    <a class="u-link" href="{% url 'Home' %}" target="">
+      <span>Redwood Civic Center (Reservation System)</span>
     </a>
     <p class="u-text">
-      <span>created with</span>
+      <span>created by</span>
     </p>
-    <a class="u-link" href="" target="_blank">
-      <span>Website Builder Software</span>
+    <a class="u-link" href="{% url 'About' %}" target="">
+      <span>Templa, Molina and Anoos</span>
     </a>.
   </section>
 </body>
