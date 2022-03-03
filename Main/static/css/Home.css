@@ -398,7 +398,7 @@
 
 .u-section-3 .u-image-1 {
   min-height: 423px;
-  background-image: url("images/469c17ce100d2365eba62cffce6ff4ce.jpeg");
+  background-image: url("/static/images/469c17ce100d2365eba62cffce6ff4ce.jpeg");
   background-position: 50% 50%;
 }
 
@@ -457,6 +457,7 @@
   --animation-custom_in-opacity: 0;
   --animation-custom_in-rotate: 0deg;
   --animation-custom_in-scale: 1;
+  background-image: none;
   margin: 61px auto 0;
 }
 
@@ -471,7 +472,7 @@
 
 .u-section-3 .u-image-3 {
   min-height: 422px;
-  background-image: url("images/67.jpg");
+  background-image: url("/static/images/67.jpg");
   background-position: 50% 50%;
 }
 
@@ -706,7 +707,7 @@
 
 .u-section-4 .u-image-1 {
   min-height: 361px;
-  background-image: url("images/3099850.jpg");
+  background-image: url("/static/images/3099850-24.jpg");
   background-position: 50% 50%;
   --animation-custom_in-translate_x: 300px;
   --animation-custom_in-translate_y: 0px;
@@ -720,7 +721,7 @@
 }
 
 .u-section-4 .u-image-2 {
-  background-image: url("images/3099863.jpg");
+  background-image: url("/static/images/3099863-25.jpg");
   background-position: 50% 50%;
   min-height: 359px;
   --animation-custom_in-translate_x: 300px;

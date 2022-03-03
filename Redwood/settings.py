@@ -37,8 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Main'
+    'Main.apps.MainConfig'
 ]
+
+STATIC_URL = '/static/'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -89,7 +92,7 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '3306',
-        'OPTIONS':{
+        'OPTIONS': {
             'init_command': "SET sql_mode= 'STRICT_TRANS_TABLES'",
         },
     }
