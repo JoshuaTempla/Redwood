@@ -25,9 +25,12 @@ class Applicant(models.Model):
 
 class Room_Type(models.Model):
     room_type = models.CharField(max_length=1, primary_key=True)
-    morning = models.IntegerField()
-    afternoon = models.IntegerField()
-    evening = models.IntegerField()
+    morning = models.FloatField()
+    afternoon = models.FloatField()
+    evening = models.FloatField()
+
+    def __str__(self):
+        return self.room_type
 
     class meta:
         db_table = 'tblroomtype'
@@ -47,7 +50,7 @@ class Reservation(models.Model):
     applicant_email = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     room_number = models.ForeignKey(Room, on_delete=models.CASCADE)
     scheduled_date_of_use = models.DateField()
-    usage_fee = models.IntegerField()
+    usage_fee = models.FloatField()
 
     class meta:
         db_table = 'tblreservation'
