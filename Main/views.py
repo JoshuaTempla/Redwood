@@ -3,26 +3,42 @@ from .forms import*
 from django.contrib import messages
 
 
-# Create your views here.
-
+# Start of user pages.
 
 def home(response):
-    return render(response, "Main/Home.html", {})
+    return render(response, "Main/User/Home.html", {})
 
 
 def about(response):
-    return render(response, "Main/About.html", {})
+    return render(response, "Main/User/About.html", {})
 
 
 def contact(response):
-    return render(response, "Main/Contact.html", {})
+    return render(response, "Main/User/Contact.html", {})
 
 
 def rooms(response):
-    return render(response, "Main/Rooms.html", {})
+    return render(response, "Main/User/Rooms.html", {})
+
+# End of user pages
 
 
-def create_room(response):
+# Start of Admin Pages
+
+
+def crud_applicants(response):
+    return render(response, "Main/Admin/CrudApplicants.html", {})
+
+
+def crud_reservation(response):
+    return render(response, "Main/Admin/CrudReservation.html", {})
+
+
+def crud_room_types(response):
+    return render(response, "Main/Admin/CrudRoomTypes.html", {})
+
+
+def crud_rooms(response):
 
     rooms = Room.objects.all()
     context = {"rooms": rooms}
@@ -50,4 +66,4 @@ def create_room(response):
                 add_room.save()
                 messages.success(response, "Room Successfully Added!!!")
 
-    return render(response, "Main/CreateRoom.html", context)
+    return render(response, "Main/Admin/CrudRooms.html", context)

@@ -6,10 +6,16 @@ from . import views
 
 urlpatterns = [
 
-    # HOME PAGE
+    # Start of user pages
     path('', views.home, name="Home"),
     path("About", views.about, name="About"),
     path("Contact", views.contact, name="Contact"),
     path("Rooms", views.rooms, name="Rooms"),
-    path("CreateRoom", views.create_room, name="CreateRoom")
+    # End of user pages
+
+    # Start of admin pages
+    path("CrudApplicants", views.crud_applicants, name="CrudApplicants"),
+    path("CrudReservation", views.crud_reservation, name="CrudReservation"),
+    path("CrudRoomTypes", views.crud_room_types, name="CrudRoomTypes"),
+    path("CrudRooms", views.crud_rooms, name="CrudRooms")
 ]
