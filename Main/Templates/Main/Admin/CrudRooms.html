@@ -213,10 +213,6 @@
                       </tbody>
                     </table>
                   </div>
-                  <!-- <a href="https://nicepage.com/website-mockup"
-                    class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-6 u-text-white u-btn-2">Update</a>
-                  <a href="https://nicepage.com/website-mockup"
-                    class="u-border-none u-btn u-btn-round u-button-style u-palette-2-base u-radius-6 u-btn-3">Delete</a> -->
                 </div>
               </div>
             </div>
@@ -319,18 +315,18 @@
             {% csrf_token %}
             <div class="mb-3">
               <b><label class="form-label">Room Number</label></b>
-              <input type="text" class="form-control" id="room_number" name="room_number" 
-                placeholder="Room Number" required="">
+              <input type="number" class="form-control" id="room_number" name="room_number" 
+                placeholder="" required="">
             </div>
             <div class="mb-3">
               <b><label class="form-label">Room Type</label></b>
               <input type="text" class="form-control" id="room_type" name="room_type" 
-                placeholder="Room Type" required="">
+                placeholder="" required="">
             </div>
             <div class="mb-3">
               <b><label class="form-label">Room Description</label></b>
               <input type="text" class="form-control" id="room_description" name="room_description" 
-                placeholder="Room Description" required="">
+                placeholder="" required="">
             </div>
             <div class="modal-footer u-align-center u-form-group u-form-submit">
               <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>

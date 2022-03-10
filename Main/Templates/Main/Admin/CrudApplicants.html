@@ -12,8 +12,26 @@
   <title>Crud Applicants</title>
   <link rel="stylesheet" href="{% static 'css/nicepage_admin.css' %}" media="screen">
   <link rel="stylesheet" href="{% static 'css/CrudApplicants.css' %}" media="screen">
-  <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+  
+  <!-- JavaScript Bundle with Popper and SCRIPTS-->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+  </script>
+  
+  <!-- <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script> -->
   <script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#book_list_datatable').DataTable();
+    });
+  </script>
   <meta name="generator" content="Nicepage 4.6.5, nicepage.com">
   <link id="u-theme-google-font" rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
@@ -137,53 +155,195 @@
   </header>
   <section class="u-clearfix u-white u-section-1" id="carousel_a76e">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <a href="https://nicepage.com/website-mockup"
+      <a data-bs-toggle="modal" href="#" data-bs-target="#addApplicant"
         class="u-border-none u-btn u-btn-round u-button-style u-palette-1-dark-1 u-radius-6 u-btn-1">Add Applicant</a>
       <div class="u-expanded-width u-table u-table-responsive u-table-1">
         <table class="u-table-entity">
           <colgroup>
             <col width="10%">
-            <col width="13.1%">
-            <col width="12.3%">
-            <col width="15.5%">
-            <col width="10.8%">
-            <col width="16.8%">
-            <col width="23.2%">
+            <col width="18.3%">
+            <col width="23.5%">
+            <col width="20.8%">
+            <col width="25.8%">
+            <col width="100.2%">
           </colgroup>
           <thead class="u-align-center u-table-header u-table-header-1">
             <tr style="height: 69px;">
               <th class="u-table-cell"></th>
-              <th class="u-table-cell">First Name</th>
-              <th class="u-table-cell">Last Name</th>
-              <th class="u-table-cell">Email</th>
-              <th class="u-table-cell">Contact Number</th>
+              <th class="u-table-cell">Name</th>
               <th class="u-table-cell">Address</th>
+              <th class="u-table-cell">Contact Number</th>
+              <th class="u-table-cell">Email</th>
               <th class="u-table-cell">Action</th>
             </tr>
           </thead>
           <tbody class="u-align-center u-table-body">
+            {% for applicant in applicants %}
             <tr style="height: 112px;">
               <td class="u-custom-color-12 u-table-cell u-table-cell-8"></td>
-              <td class="u-table-cell">Josh Anderson,<br>josh-info@gmail.com
-              </td>
-              <td class="u-table-cell">SU030</td>
-              <td class="u-table-cell">Developer</td>
-              <td class="u-table-cell">+1 222 33 44</td>
-              <td class="u-table-cell">Mar 27, 2005</td>
+              <td class="u-table-cell">{{applicant.applicant_name}}</td>
+              <td class="u-table-cell">{{applicant.applicant_address}}</td>
+              <td class="u-table-cell">{{applicant.applicant_contactNo}}</td>
+              <td class="u-table-cell">{{applicant.applicant_email}}</td>
               <td class="u-table-cell " style="text-align: center; white-space:nowrap;">
-                <a type="button" href="https://nicepage.com/k/membership-website-templates"
-                class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-6 u-text-body-alt-color u-btn-2" style="margin-right: 20px">Update</a>
-                <a type="button" href="https://nicepage.com/k/membership-website-templates"
-                class="u-border-none u-btn u-btn-round u-button-style u-palette-2-base u-radius-6 u-text-body-alt-color u-btn-5" style="margin-right: 20px">Delete</a>
+                <a type="button" data-bs-toggle="modal" href="#"
+                  data-bs-target="#viewModal-{{applicant.applicant_contactNo}}"
+                  class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-6 u-text-body-alt-color u-btn-2"
+                  style="margin-right: 20px">Update</a>
+                <a type="button" data-bs-toggle="modal" href="#"
+                  data-bs-target="#deleteModal-{{applicant.applicant_contactNo}}"
+                  class="u-border-none u-btn u-btn-round u-button-style u-palette-2-base u-radius-6 u-text-body-alt-color u-btn-5"
+                  style="margin-right: 20px">Delete</a>
               </td>
             </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>
-      
-    
+
+
     </div>
   </section>
+
+  {% for applicant in applicants %}
+  <!-- Modal -->
+  <div class="modal fade" id="viewModal-{{applicant.applicant_contactNo}}" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Update Applicant Details Page
+          </h5>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <b><label class="form-label">Applicant's Name</label></b>
+              <input type="text" class="form-control" name="applicant_name" value="{{applicant.applicant_name}}"
+                placeholder="Applicant Name" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Applicant's Address</label></b>
+              <input type="text" class="form-control" name="applicant_address" value="{{applicant.applicant_address}}"
+                placeholder="Applicant's Address" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Applicant's Contact Number</label></b>
+              <input type="number" class="form-control" name="applicant_contactNo"
+                value="{{applicant.applicant_contactNo}}" placeholder="Applicant's Contact Number" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Applicant's Email</label></b>
+              <input type="email" class="form-control" name="applicant_email" value="{{applicant.applicant_email}}"
+                placeholder="Applicant's Email" required="" readonly>
+            </div>
+            <div class="modal-footer u-align-center u-form-group u-form-submit">
+              <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" name="btnUpdate">Update</button>
+              {% if messages %}
+              {% for result in messages %}
+              <script>
+                Swal.fire({
+                  title: 'Success!!!',
+                  text: '{{result}}',
+                  icon: 'success',
+                  confirmButtonText: 'Okay'
+                })
+              </script>
+              {% endfor %}
+              {% endif %}
+            </div>
+            <input type="hidden" value="" name="recaptchaResponse">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  {% for applicant in applicants %}
+  <div class="modal fade" id="deleteModal-{{applicant.applicant_contactNo}}" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Delete Applicant</h5>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <b><label class="form-label">Do you want to delete this applicant?</label></b>
+              <input type="email" class="form-control" id="applicant_email" name="applicant_email"
+                value="{{applicant.applicant_email}}" placeholder="Applicant's Email" required="" readonly>
+            </div>
+            <div class="modal-footer u-align-center u-form-group u-form-submit">
+              <button type="button" class="btn btn-warning" data-bs-dismiss="modal">No</button>
+              <button type="submit" class="btn btn-danger" name="btnDelete">Yes</button>
+            </div>
+            <input type="hidden" value="" name="recaptchaResponse">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="addApplicant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Add Applicant Page</h5>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <b><label class="form-label">Applicant's Name</label></b>
+              <input type="text" class="form-control" id="applicant_name" name="applicant_name"
+                placeholder="" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Applicant's Address</label></b>
+              <input type="text" class="form-control" id="applicant_address" name="applicant_address"
+                placeholder="" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Applicant's Contact Number</label></b>
+              <input type="number" class="form-control" id="applicant_contactNo" name="applicant_contactNo"
+                placeholder="" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Applicant's Email</label></b>
+              <input type="email" class="form-control" id="applicant_email" name="applicant_email"
+                placeholder="" required="">
+            </div>
+            <div class="modal-footer u-align-center u-form-group u-form-submit">
+              <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" name="btnAddApplicant">Add Applicant</button>
+              {% if messages %}
+              {% for result in messages %}
+              <script>
+                Swal.fire({
+                  title: 'Success!!!',
+                  text: '{{result}}',
+                  icon: 'success',
+                  confirmButtonText: 'Okay'
+                })
+              </script>
+              {% endfor %}
+              {% endif %}
+            </div>
+            <input type="hidden" value="" name="recaptchaResponse">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 

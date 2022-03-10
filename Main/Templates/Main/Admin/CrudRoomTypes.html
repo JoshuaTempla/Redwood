@@ -12,8 +12,30 @@
   <title>Crud Room Types</title>
   <link rel="stylesheet" href="{% static 'css/nicepage_admin.css' %}" media="screen">
   <link rel="stylesheet" href="{% static 'css/CrudRoomTypes.css' %}" media="screen">
-  <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+  
+  <!-- JavaScript Bundle with Popper and SCRIPTS-->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+  </script>
+  
+  <!-- <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script> -->
   <script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#book_list_datatable').DataTable();
+    });
+  </script>
+
+
+
+
   <meta name="generator" content="Nicepage 4.6.5, nicepage.com">
   <link id="u-theme-google-font" rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
@@ -137,8 +159,8 @@
   </header>
   <section class="u-align-center u-clearfix u-section-1" id="carousel_97d7">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <a href="https://nicepage.com/website-mockup"
-        class="u-border-none u-btn u-btn-round u-button-style u-palette-1-dark-1 u-radius-6 u-btn-1">Add</a>
+      <a data-bs-toggle="modal" href="#" data-bs-target="#addRoomType"
+        class="u-border-none u-btn u-btn-round u-button-style u-palette-1-dark-1 u-radius-6 u-btn-1">Add Room Type</a>
       <div class="u-table u-table-responsive u-table-1">
         <table class="u-table-entity u-table-entity-1">
           <colgroup>
@@ -150,8 +172,7 @@
           </colgroup>
           <thead class="u-align-center u-custom-color-12 u-custom-font u-font-roboto u-table-header u-table-header-1">
             <tr style="height: 48px;">
-              <th class="u-align-center u-table-cell u-table-cell-1">Room T<span style="font-size: 1rem;"></span>ype
-              </th>
+              <th class="u-align-center u-table-cell u-table-cell-1">Room Type</th>
               <th class="u-align-center u-table-cell u-table-cell-2">Morning (9-12am)</th>
               <th class="u-align-center u-table-cell u-table-cell-3">Afternoon (1-5pm)</th>
               <th class="u-align-center u-table-cell u-table-cell-4">Evening (6-10pm)</th>
@@ -159,23 +180,168 @@
             </tr>
           </thead>
           <tbody class="u-align-center u-table-body">
+            {% for room_type in room_types %}
             <tr style="height: 55px;">
-              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">Item #1</td>
-              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">Description</td>
-              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">Discount:</td>
-              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">$1.00</td>
-              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell" style="text-align: center; white-space:nowrap;">
-                <a href="https://nicepage.com/wordpress-website-builder"
-                  class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-6 u-text-white u-btn-2" style="margin-right: 5px; margin-top: 25%;">Update</a>
-                <a href="https://nicepage.com/wordpress-website-builder"
-                  class="u-border-none u-btn u-btn-round u-button-style u-palette-2-base u-radius-6 u-text-white u-btn-5" style="margin-right: 5px; margin-top: 25%; ">Delete</a>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{room_type.room_type}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">${{room_type.morning}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">${{room_type.afternoon}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">${{room_type.evening}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell"
+                style="text-align: center; white-space:nowrap;">
+                <a data-bs-toggle="modal" href="#" data-bs-target="#viewModal-{{room_type.room_type}}"
+                  class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-6 u-text-white u-btn-2"
+                  style="margin-right: 5px; margin-top: 25%;">Update</a>
+                <a data-bs-toggle="modal" href="#" data-bs-target="#deleteModal-{{room_type.room_type}}"
+                  class="u-border-none u-btn u-btn-round u-button-style u-palette-2-base u-radius-6 u-text-white u-btn-5"
+                  style="margin-right: 5px; margin-top: 25%; ">Delete</a>
               </td>
             </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>
     </div>
   </section>
+
+  {% for room_type in room_types %}
+  <!-- Modal -->
+  <div class="modal fade" id="viewModal-{{room_type.room_type}}" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Update Room Type Page</h5>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <b><label class="form-label">Room Type</label></b>
+              <input type="text" class="form-control"  name="room_type" value="{{room_type.room_type}}"
+                placeholder="Room Type" required="" readonly>
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Morning Price</label></b>
+              <input type="number" class="form-control"  name="morning" value="{{room_type.morning}}"
+                placeholder="Morning Price" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Afternoon Price</label></b>
+              <input type="number" class="form-control"  name="afternoon" value="{{room_type.afternoon}}"
+                placeholder="Afternoon Price" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Evening Price</label></b>
+              <input type="number" class="form-control"  name="evening" value="{{room_type.evening}}"
+                placeholder="Evening Price" required="">
+            </div>
+            <div class="modal-footer u-align-center u-form-group u-form-submit">
+              <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" name="btnUpdate">Update</button>
+              {% if messages %}
+              {% for result in messages %}
+              <script>
+                Swal.fire({
+                  title: 'Success!!!',
+                  text: '{{result}}',
+                  icon: 'success',
+                  confirmButtonText: 'Okay'
+                })
+              </script>
+              {% endfor %}
+              {% endif %}
+            </div>
+            <input type="hidden" value="" name="recaptchaResponse">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  {% for room_type in room_types %}
+  <div class="modal fade" id="deleteModal-{{room_type.room_type}}" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Delete Room Type</h5>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <b><label class="form-label">Do you want to delete this room?</label></b>
+              <input type="text" class="form-control" id="room_type" name="room_type" value="{{room_type.room_type}}"
+                placeholder="Room Type" required="" readonly>
+            </div>
+            <div class="modal-footer u-align-center u-form-group u-form-submit">
+              <button type="button" class="btn btn-warning" data-bs-dismiss="modal">No</button>
+              <button type="submit" class="btn btn-danger" name="btnDelete">Yes</button>
+            </div>
+            <input type="hidden" value="" name="recaptchaResponse">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="addRoomType" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Add Room Type Page</h5>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <b><label class="form-label">Room Type</label></b>
+              <input type="text" class="form-control" id="room_type" name="room_type" 
+                placeholder="" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Morning Price</label></b>
+              <input type="number" class="form-control" id="morning" name="morning" 
+                placeholder="" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Afternoon Price</label></b>
+              <input type="number" class="form-control" id="afternoon" name="afternoon" 
+                placeholder="" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Evening Price</label></b>
+              <input type="number" class="form-control" id="evening" name="evening" 
+                placeholder="" required="">
+            </div>
+            <div class="modal-footer u-align-center u-form-group u-form-submit">
+              <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" name="btnAddRoomType">Add Room</button>
+              {% if messages %}
+              {% for result in messages %}
+              <script>
+                Swal.fire({
+                  title: 'Success!!!',
+                  text: '{{result}}',
+                  icon: 'success',
+                  confirmButtonText: 'Okay'
+                })
+              </script>
+              {% endfor %}
+              {% endif %}
+            </div>
+            <input type="hidden" value="" name="recaptchaResponse">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
   <section class="u-backlink u-clearfix u-grey-80">

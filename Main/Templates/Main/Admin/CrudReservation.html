@@ -12,8 +12,29 @@
   <title>Crud Reservation</title>
   <link rel="stylesheet" href="{% static 'css/nicepage_admin.css' %}" media="screen">
   <link rel="stylesheet" href="{% static 'css/CrudReservation.css' %}" media="screen">
-  <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+
+  <!-- JavaScript Bundle with Popper and SCRIPTS-->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+  </script>
+
+  <!-- <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script> -->
   <script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#book_list_datatable').DataTable();
+    });
+  </script>
+
+
+
   <meta name="generator" content="Nicepage 4.6.5, nicepage.com">
   <link id="u-theme-google-font" rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
@@ -137,8 +158,8 @@
   </header>
   <section class="u-align-center u-clearfix u-section-1" id="carousel_0a0c">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <a href="https://nicepage.com/website-mockup"
-        class="u-border-none u-btn u-btn-round u-button-style u-palette-1-dark-1 u-radius-6 u-btn-1">Add</a>
+      <a data-bs-toggle="modal" href="#" data-bs-target="#addReservation"
+        class="u-border-none u-btn u-btn-round u-button-style u-palette-1-dark-1 u-radius-6 u-btn-1">Add Reservation</a>
       <div class="u-table u-table-responsive u-table-1">
         <table class="u-table-entity u-table-entity-1">
           <colgroup>
@@ -162,25 +183,177 @@
             </tr>
           </thead>
           <tbody class="u-align-center u-table-alt-custom-color-13 u-table-body">
+            {% for reservation in reservations %}
             <tr style="height: 55px;">
-              <td class="u-table-cell">Item #1</td>
-              <td class="u-table-cell">Description</td>
-              <td class="u-table-cell">Discount:</td>
-              <td class="u-table-cell">$1.00</td>
-              <td class="u-table-cell">wew</td>
-              <td class="u-table-cell">asdasd</td>
+              <td class="u-table-cell">{{reservation.reservation_number}}</td>
+              <td class="u-table-cell">{{reservation.room_number}}</td>
+              <td class="u-table-cell">{{reservation.applicant_email}}</td>
+              <td class="u-table-cell">{{reservation.scheduled_date_of_use}}</td>
+              <td class="u-table-cell">Morning</td>
+              <td class="u-table-cell">{{reservation.usage_fee}}</td>
               <td class="u-table-cell" style="text-align: center; white-space:nowrap;">
-                <a href="https://nicepage.com/c/technology-html-templates"
-                  class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-6 u-text-white u-btn-2" style="margin-right: 20px; margin-top: 1%;">Update</a>
-                <a href="https://nicepage.com/c/technology-html-templates"
-                  class="u-border-none u-btn u-btn-round u-button-style u-palette-2-base u-radius-6 u-text-white u-btn-3" style="margin-right: 20px; margin-top: 1%;">Delete</a>
+                <a data-bs-toggle="modal" href="#" data-bs-target="#viewModal-{{reservation.reservation_number}}"
+                  class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-6 u-text-white u-btn-2"
+                  style="margin-right: 20px; margin-top: 1%;">Update</a>
+                <a data-bs-toggle="modal" href="#" data-bs-target="#deleteModal-{{reservation.reservation_number}}"
+                  class="u-border-none u-btn u-btn-round u-button-style u-palette-2-base u-radius-6 u-text-white u-btn-3"
+                  style="margin-right: 20px; margin-top: 1%;">Delete</a>
               </td>
             </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>
     </div>
   </section>
+
+  {% for reservation in reservations %}
+  <!-- Modal -->
+  <div class="modal fade" id="viewModal-{{reservation.reservation_number}}" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Update Reservation Page</h5>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <b><label class="form-label">Reservation Number</label></b>
+              <input type="number" class="form-control" name="reservation_number"
+                value="{{reservation.reservation_number}}" placeholder="Reservation Number" required="" readonly>
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Room Number</label></b>
+              <input type="number" class="form-control" name="room_number" value="{{reservation.room_number}}"
+                placeholder="Room Number" required="" readonly>
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Applicant's Email</label></b>
+              <input type="email" class="form-control" name="applicant_email" value="{{reservation.applicant_email}}"
+                placeholder="Applicant Email" required="" readonly>
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Date of Use</label></b>
+              <input type="date" class="form-control" name="scheduled_date_of_use"
+                value="{{reservation.scheduled_date_of_use}}" placeholder="Date of Use" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Total Fee</label></b>
+              <input type="number" class="form-control" name="usage_fee" value="{{reservation.usage_fee}}"
+                placeholder="Total Fee" required="">
+            </div>
+            <div class="modal-footer u-align-center u-form-group u-form-submit">
+              <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" name="btnUpdate">Update</button>
+              {% if messages %}
+              {% for result in messages %}
+              <script>
+                Swal.fire({
+                  title: 'Success!!!',
+                  text: '{{result}}',
+                  icon: 'success',
+                  confirmButtonText: 'Okay'
+                })
+              </script>
+              {% endfor %}
+              {% endif %}
+            </div>
+            <input type="hidden" value="" name="recaptchaResponse">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  {% for reservation in reservations %}
+  <div class="modal fade" id="deleteModal-{{reservation.reservation_number}}" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Delete Room Reservation</h5>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <b><label class="form-label">Do you want to delete this reservation?</label></b>
+              <input type="text" class="form-control" id="reservation_number" name="reservation_number"
+                value="{{reservation.reservation_number}}" placeholder="Reservation Number" required="" readonly>
+            </div>
+            <div class="modal-footer u-align-center u-form-group u-form-submit">
+              <button type="button" class="btn btn-warning" data-bs-dismiss="modal">No</button>
+              <button type="submit" class="btn btn-danger" name="btnDelete">Yes</button>
+            </div>
+            <input type="hidden" value="" name="recaptchaResponse">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="addReservation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Add Room Reservation Page</h5>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <b><label class="form-label">Reservation Number</label></b>
+              <input type="number" class="form-control" id="reservation_number" name="reservation_number" placeholder="Incremented"
+                required="" readonly>
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Room Number</label></b>
+              <input type="number" class="form-control" id="room_number" name="room_number" placeholder="" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Applicant's Email</label></b>
+              <input type="email" class="form-control" id="applicant_email" name="applicant_email" placeholder=""
+                required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Date of Use</label></b>
+              <input type="date" class="form-control" id="scheduled_date_of_use" name="scheduled_date_of_use"
+                placeholder="" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Total Fee</label></b>
+              <input type="number" class="form-control" id="usage_fee" name="usage_fee" placeholder="" required="">
+            </div>
+            <div class="modal-footer u-align-center u-form-group u-form-submit">
+              <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" name="btnAddReservation">Add Reservation</button>
+              {% if messages %}
+              {% for result in messages %}
+              <script>
+                Swal.fire({
+                  title: 'Success!!!',
+                  text: '{{result}}',
+                  icon: 'success',
+                  confirmButtonText: 'Okay'
+                })
+              </script>
+              {% endfor %}
+              {% endif %}
+            </div>
+            <input type="hidden" value="" name="recaptchaResponse">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
 
