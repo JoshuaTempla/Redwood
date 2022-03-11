@@ -71,6 +71,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'Redwood.wsgi.application'
 
 

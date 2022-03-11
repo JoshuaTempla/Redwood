@@ -9,7 +9,8 @@
   <meta name="keywords" content="You can choose the type of conference room you want">
   <meta name="description" content="">
   <meta name="page_type" content="np-template-header-footer-from-plugin">
-  <title>Civic Conference Rooms</title>
+  <title>Redwood Civic Center</title>
+  <link rel="icon"href="{% static 'images/favicon.ico' %}">
   <link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
   <link rel="stylesheet" href="{% static 'css/Rooms.css' %}" media="screen">
   <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script>
@@ -45,7 +46,7 @@
         data-image-height="208" title="HOME">
         <img src="{% static 'images/MicrosoftTeams-image1.png' %}" class="u-logo-image u-logo-image-1">
       </a>
-      <a href="https://nicepage.com/css-templates"
+      <a href="{% url 'Rooms' %}"
         class="u-border-none u-btn u-btn-round u-button-style u-custom-color-13 u-custom-font u-font-roboto u-radius-10 u-text-body-color u-btn-1">Reservation</a>
       <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
         <div class="menu-collapse u-custom-font u-font-roboto" style="font-size: 1rem; font-weight: 300;">

@@ -58,7 +58,7 @@ def crud_applicants(response):
                 add_applicant.applicant_email = response.POST.get(
                     'applicant_email')
                 add_applicant.save()
-                messages.success(response, "Room Successfully Added!!!")
+                messages.success(response, "Applicant Successfully Added!!!")
 
     return render(response, "Main/Admin/CrudApplicants.html", context)
 
@@ -94,7 +94,7 @@ def crud_reservation(response):
                     'scheduled_date_of_use')
                 add_reservation.usage_fee = response.POST.get('usage_fee')
                 add_reservation.save()
-                messages.success(response, "Room Successfully Added!!!")
+                messages.success(response, "Reservation Successfully Added!!!")
 
     return render(response, "Main/Admin/CrudReservation.html", context)
 
@@ -125,7 +125,8 @@ def crud_room_types(response):
                 add_room_type.afternoon = response.POST.get('afternoon')
                 add_room_type.evening = response.POST.get('evening')
                 add_room_type.save()
-                messages.success(response, "Room Successfully Added!!!")
+                messages.success(
+                    response, "A Different Kind of Room has Successfully Added!!!")
 
     return render(response, "Main/Admin/CrudRoomTypes.html", context)
 
