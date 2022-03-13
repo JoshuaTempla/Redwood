@@ -10,10 +10,10 @@ from django.conf import settings
 urlpatterns = [
 
     # Start of user pages
-    path('', views.home, name="Home"),
-    path("About", views.about, name="About"),
-    path("Contact", views.contact, name="Contact"),
-    path("Rooms", views.rooms, name="Rooms"),
+    path('Redwood-Home', views.home, name="Home"),
+    path("Redwood-About", views.about, name="About"),
+    path("Redwood-Contact", views.contact, name="Contact"),
+    path("Redwood-Rooms", views.rooms, name="Rooms"),
     # End of user pages
 
     # icon browser tab
@@ -22,8 +22,8 @@ urlpatterns = [
 
 
     # Start of admin pages
-    path("CrudApplicants", views.crud_applicants, name="CrudApplicants"),
-    path("CrudReservation", views.crud_reservation, name="CrudReservation"),
-    path("CrudRoomTypes", views.crud_room_types, name="CrudRoomTypes"),
-    path("CrudRooms", views.crud_rooms, name="CrudRooms")
+    path("Admin-crudapplicants", views.crud_applicants, name="CrudApplicants"),
+    path("Admin-crudreservation", views.crud_reservation, name="CrudReservation"),
+    path("Admin-crudroomtypes", views.crud_room_types, name="CrudRoomTypes"),
+    path("Admin-crudrooms", views.crud_rooms, name="CrudRooms")
 ]
