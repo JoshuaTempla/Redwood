@@ -57,9 +57,8 @@ class Reservation(models.Model):
         db_table = 'tblreservation'
 
 
-
 class RoomLedger(models.Model):
-    room_ledger_id = models.AutoField(primary_key= True)
+    room_ledger_id = models.AutoField(primary_key=True)
     date_of_use = models.DateField()
     room_number = models.IntegerField()
     room_type = models.IntegerField()
