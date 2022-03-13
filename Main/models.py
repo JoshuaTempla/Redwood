@@ -17,8 +17,8 @@ class Applicant(models.Model):
     applicant_name = models.CharField(max_length=40)
     applicant_address = models.CharField(max_length=40)
 
-   # def __str__(self):
-        #return self.applicant_name
+    def __str__(self):
+        return self.applicant_email
 
     class meta:
         db_table = 'tblapplicant'
