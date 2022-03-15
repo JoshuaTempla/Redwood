@@ -145,6 +145,8 @@
         prices. It is assured that these rooms will meet your expectations. Stay safe and enjoy your stay!</p>
     </div>
   </section>
+  {% for room_type in room_types %}
+    {% if room_type.room_type == "A" %}
   <section class="u-align-center u-clearfix u-section-2" id="sec-c82a">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <div class="u-container-style u-expanded-width u-group u-shape-rectangle u-group-1"
@@ -153,19 +155,24 @@
           <img class="u-image u-image-default u-image-1" src="{% static 'images/House-Arryn-Main-Shield.PNG.png' %}" alt=""
             data-image-width="400" data-image-height="480">
           <h1 class="u-custom-font u-font-roboto u-text u-text-default u-text-1">ROOM TYPE</h1>
-          <h1 class="u-custom-font u-font-playfair-display u-text u-text-default u-text-2">ROOM ARRYN (A) &nbsp;</h1>
+          <h1 class="u-custom-font u-font-playfair-display u-text u-text-default u-text-2">ROOM ARRYN ({{room_type.room_type}}) &nbsp;</h1>
           <p class="u-align-left u-text u-text-black u-text-3"> Room Arryn of the Eyrie&nbsp;is one of the&nbsp;Great
             Rooms of&nbsp;Redwood, and is the principal noble house in the&nbsp;Vale of Arryn. Their main seat is
             the&nbsp;Eyrie, which is considered impregnable.</p>
-          <p class="u-align-left u-text u-text-4">Morning: $50&nbsp; &nbsp; &nbsp;Afternon: $75&nbsp; &nbsp; &nbsp;
-            &nbsp;Evening: $100</p>
-          <a href="https://nicepage.cloud"
+          <p class="u-align-left u-text u-text-4">Morning: ${{room_type.morning}}&nbsp; &nbsp; &nbsp;Afternon: ${{room_type.afternoon}}&nbsp; &nbsp; &nbsp;
+            &nbsp;Evening: ${{room_type.evening}}</p>
+            <form action="" method="POST" target="_blank">
+              {% csrf_token %}
+            <input type="text" id="room_type" name="room_type" value="{{room_type.room_type}}" readonly hidden>
+            <button type="submit" id ="btnReserve" name="btnReserve"
             class="u-border-none u-btn u-button-style u-custom-color-14 u-custom-font u-font-playfair-display u-text-body-alt-color u-btn-1">visit
-            Arryn</a>
+            Arryn</button> 
+            </form>
         </div>
       </div>
     </div>
   </section>
+  {% elif room_type.room_type == "B" %}
   <section class="u-align-center u-clearfix u-section-3" id="carousel_9ec7">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <div class="u-container-style u-expanded-width u-group u-shape-rectangle u-group-1"
@@ -175,19 +182,24 @@
             data-image-width="1200" data-image-height="1320">
           <h1 class="u-align-right u-custom-font u-font-roboto u-text u-text-default u-text-1">ROOM TYPE</h1>
           <h1 class="u-align-right u-custom-font u-font-playfair-display u-text u-text-default u-text-2">ROOM
-            BARATHEON (B) &nbsp;</h1>
+            BARATHEON ({{room_type.room_type}}) &nbsp;</h1>
           <p class="u-align-right u-text u-text-black u-text-3"> Room Baratheon of Storm's End is one of the Great
             Houses of Redwood, and is the principal house in the stormlands, which they rule as Lords Paramount of the
             Stormlands.</p>
-          <p class="u-align-left u-text u-text-4">Morning: $20&nbsp; &nbsp; &nbsp;Afternon: $30&nbsp; &nbsp; &nbsp;
-            &nbsp;Evening: $40</p>
-          <a href="https://nicepage.cloud"
+          <p class="u-align-left u-text u-text-4">Morning: ${{room_type.morning}}&nbsp; &nbsp; &nbsp;Afternon: ${{room_type.afternoon}}&nbsp; &nbsp; &nbsp;
+            &nbsp;Evening: ${{room_type.evening}}</p>
+            <form action="" method="POST" target="_blank">
+              {% csrf_token %}
+              <input type="text" id="room_type" name="room_type" value="{{room_type.room_type}}" readonly hidden>
+            <button type="submit" id ="btnReserve" name="btnReserve"
             class="u-border-none u-btn u-button-style u-custom-font u-font-playfair-display u-palette-3-base u-text-black u-btn-1">visit
-            Baratheon</a>
+            Baratheon</button>
+          </form>
         </div>
       </div>
     </div>
   </section>
+  {% elif room_type.room_type == "C" %}
   <section class="u-align-center u-clearfix u-section-4" id="carousel_2d81">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <div class="u-container-style u-expanded-width u-group u-shape-rectangle u-group-1"
@@ -196,19 +208,24 @@
           <img class="u-image u-image-default u-image-1" src="{% static 'images/545px-House_Clegane.svg.png' %}" alt=""
             data-image-width="545" data-image-height="600">
           <h1 class="u-custom-font u-font-roboto u-text u-text-default u-text-1">ROOM TYPE</h1>
-          <h1 class="u-custom-font u-font-playfair-display u-text u-text-default u-text-2">ROOM CLEGANE (C) </h1>
+          <h1 class="u-custom-font u-font-playfair-display u-text u-text-default u-text-2">ROOM CLEGANE ({{room_type.room_type}}) </h1>
           <p class="u-align-left u-text u-text-black u-text-3"> Room Clegane is a room of landed knights in the
             Redwoodlands. They hold fealty to House Lannister of Casterly Rock, and are among their primary bannermen.
             Their lands are southeast of the Rock and include a towerhouse.</p>
-          <p class="u-align-left u-text u-text-4">Morning: $10&nbsp; &nbsp; &nbsp;Afternon: $15&nbsp; &nbsp; &nbsp;
-            &nbsp;Evening: $20</p>
-          <a href="https://nicepage.cloud"
+          <p class="u-align-left u-text u-text-4">Morning: ${{room_type.morning}}&nbsp; &nbsp; &nbsp;Afternon: ${{room_type.afternoon}}&nbsp; &nbsp; &nbsp;
+            &nbsp;Evening: ${{room_type.evening}}</p>
+            <form action="" method="POST" target="_blank">
+              {% csrf_token %}
+              <input type="text" id="room_type" name="room_type" value="{{room_type.room_type}}" readonly hidden>
+          <button type="submit" id ="btnReserve" name="btnReserve"
             class="u-border-none u-btn u-button-style u-custom-font u-font-playfair-display u-palette-3-base u-text-black u-btn-1">visit
-            Clegane</a>
+            Clegane</button>
+          </form>
         </div>
       </div>
     </div>
   </section>
+  {% elif room_type.room_type == "D" %}
   <section class="u-align-center u-clearfix u-section-5" id="carousel_3699">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <div class="u-container-style u-expanded-width u-group u-shape-rectangle u-group-1"
@@ -216,21 +233,27 @@
         <div class="u-container-layout u-container-layout-1">
           <h1 class="u-align-right u-custom-font u-font-roboto u-text u-text-default u-text-1">ROOM TYPE</h1>
           <h1 class="u-align-right u-custom-font u-font-playfair-display u-text u-text-default u-text-2">ROOM
-            DAYNE (D) &nbsp;</h1>
+            DAYNE ({{room_type.room_type}}) &nbsp;</h1>
           <img class="u-image u-image-default u-image-1" src="{% static 'images/1200px-House_Dayne.svg.png' %}" alt=""
             data-image-width="1200" data-image-height="1200">
           <p class="u-align-right u-text u-text-black u-text-3"> Room Dayne of Starfall is a noble house from Starfall
             in Redwood. They are among the principal rooms sworn to House Martell. The Sword of the Morning is a title
             given to a Dayne knight who is considered worthy of wielding the greatsword Dawn</p>
-          <a href="https://nicepage.cloud"
+            <form action="" method="POST" target="_blank">
+              {% csrf_token %}
+              <input type="text" id="room_type" name="room_type" value="{{room_type.room_type}}" readonly hidden>
+          <button type="submit" id ="btnReserve" name="btnReserve"
             class="u-border-none u-btn u-button-style u-custom-font u-font-playfair-display u-palette-4-dark-2 u-text-body-alt-color u-btn-1">visit
-            Dayne</a>
-          <p class="u-align-left u-text u-text-4">Morning: $3&nbsp; &nbsp; &nbsp;Afternon: $4.5&nbsp; &nbsp; &nbsp;
-            &nbsp;Evening: $6</p>
+            Dayne</button>
+          <p class="u-align-left u-text u-text-4">Morning: ${{room_type.morning}}&nbsp; &nbsp; &nbsp;Afternon: ${{room_type.afternoon}}&nbsp; &nbsp; &nbsp;
+            &nbsp;Evening: ${{room_type.evening}}</p>
+            </form>
         </div>
       </div>
     </div>
   </section>
+  {% endif %}
+  {% endfor %}
 
 
 

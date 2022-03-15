@@ -61,7 +61,7 @@ class RoomLedger(models.Model):
     room_ledger_id = models.AutoField(primary_key=True)
     date_of_use = models.DateField()
     room_number = models.IntegerField()
-    room_type = models.IntegerField()
+    room_type = models.CharField(max_length=1)
     morning = models.IntegerField()
     afternoon = models.IntegerField()
     evening = models.IntegerField()
