@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from .forms import*
 from django.contrib import messages
 from Main.models import Room
@@ -20,7 +21,33 @@ def contact(response):
 
 
 def rooms(response):
-    return render(response, "Main/User/Rooms.html", {})
+
+    room_types = Room_Type.objects.all()
+    context = {"room_types": room_types}
+
+    if response.method == "POST":
+        if 'btnReserve' in response.POST:
+            current_room_type = response.POST.get("room_type")
+            response.session['room_type'] = current_room_type
+            return redirect(reservation)
+        else:
+            return HttpResponse('You are in the wrong page')
+
+    return render(response, "Main/User/Rooms.html", context)
+
+
+def reservation(response):
+
+    # view data from database
+    room_types = Room_Type.objects.all()
+    room_type_in_rooms = Room.objects.all()
+    current_room = response.session['room_type']
+
+    context = {'current_room': current_room, 'room_types': room_types,
+               'room_type_in_rooms': room_type_in_rooms}
+    # end of view
+
+    return render(response, "Main/User/Reservation.html", context)
 
 # End of user pages
 
