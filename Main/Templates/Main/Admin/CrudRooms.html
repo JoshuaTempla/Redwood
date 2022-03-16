@@ -9,9 +9,10 @@
   <meta name="keywords" content="Redwood Dashboard">
   <meta name="description" content="">
   <meta name="page_type" content="np-template-header-footer-from-plugin">
-  <title>Admin Create Room</title>
-  <link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
-  <link rel="stylesheet" href="{% static 'css/CreateRoom.css' %}" media="screen">
+  <title>Redwood Civic Center</title>
+  <link rel="icon"href="{% static 'images/favicon.ico' %}">
+  <link rel="stylesheet" href="{% static 'css/nicepage_admin.css' %}" media="screen">
+  <link rel="stylesheet" href="{% static 'css/CrudRooms.css' %}" media="screen">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
@@ -55,12 +56,9 @@
 <body class="u-body u-xl-mode">
   <header class="u-clearfix u-header u-header" id="sec-f0e0">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <a href="{% url 'Home' %}" data-page-id="57438736" class="u-image u-logo u-image-1" data-image-width="402"
-        data-image-height="208" title="HOME">
+      <a href="{% url 'Home' %}" class="u-image u-logo u-image-1" data-image-width="402" data-image-height="208" title="HOME">
         <img src="{% static 'images/MicrosoftTeams-image1.png' %}" class="u-logo-image u-logo-image-1">
       </a>
-      <a href="https://nicepage.com/css-templates"
-        class="u-border-none u-btn u-btn-round u-button-style u-custom-color-13 u-custom-font u-font-roboto u-radius-10 u-text-body-color u-btn-1">Reservation</a>
       <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
         <div class="menu-collapse u-custom-font u-font-roboto" style="font-size: 1rem; font-weight: 300;">
           <a class="u-button-style u-custom-border-radius u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-palette-1-base"
@@ -79,14 +77,14 @@
           </a>
         </div>
         <div class="u-custom-menu u-nav-container">
-          <ul class="u-custom-font u-font-roboto u-nav u-unstyled u-nav-1">
+          <ul class="u-custom-font u-font-roboto u-nav u-spacing-40 u-unstyled u-nav-1">
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-hover-grey-90"
-                href="{% url 'About' %}" style="padding: 6px 20px;">About Us</a>
+                href="{% url 'CrudRoomTypes' %}" style="padding: 6px 20px;">Room Types</a>
             </li>
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-hover-grey-90"
-                href="{% url 'Contact' %}" style="padding: 6px 20px;">Contact Us</a>
+                href="{% url 'CrudReservation' %}" style="padding: 6px 20px;">Reservation Ledger</a>
             </li>
           </ul>
         </div>
@@ -95,11 +93,11 @@
             <div class="u-inner-container-layout u-sidenav-overflow">
               <div class="u-menu-close"></div>
               <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="{% url 'About' %}"
-                    style="padding: 6px 20px;">About Us</a>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'CrudRoomTypes' %}"
+                    style="padding: 6px 20px;">Room Types</a>
                 </li>
-                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'Contact' %}"
-                    style="padding: 6px 20px;">Contact Us</a>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'CrudReservation' %}"
+                    style="padding: 6px 20px;">Reservation Ledger</a>
                 </li>
               </ul>
             </div>
@@ -126,10 +124,14 @@
           </a>
         </div>
         <div class="u-custom-menu u-nav-container">
-          <ul class="u-custom-font u-font-roboto u-nav u-spacing-0 u-unstyled u-nav-3">
+          <ul class="u-custom-font u-font-roboto u-nav u-spacing-40 u-unstyled u-nav-3">
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-grey-75 u-border-hover-grey-75 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-black u-text-hover-grey-90"
-                href="{% url 'Home' %}" style="padding: 6px 20px;">Home</a>
+                href="{% url 'CrudApplicants' %}" style="padding: 6px 20px;">Applicants</a>
+            </li>
+            <li class="u-nav-item"><a
+                class="u-border-1 u-border-active-grey-75 u-border-hover-grey-75 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-black u-text-hover-grey-90"
+                href="{% url 'CrudRooms' %}" style="padding: 6px 20px;">Rooms</a>
             </li>
           </ul>
         </div>
@@ -138,8 +140,11 @@
             <div class="u-inner-container-layout u-sidenav-overflow">
               <div class="u-menu-close"></div>
               <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4">
-                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'Home' %}"
-                    style="padding: 6px 20px;">Home</a>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'CrudApplicants' %}"
+                    style="padding: 6px 20px;">Applicants</a>
+                </li>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'CrudRooms' %}"
+                    style="padding: 6px 20px;">Rooms</a>
                 </li>
               </ul>
             </div>
@@ -171,7 +176,7 @@
                   <p class="u-text u-text-default u-text-2">Admin can create, read, update and delete rooms in the
                     system. This page will show all of the rooms created by the admin</p>
                   <button type="button" class="u-border-none u-btn u-btn-round u-button-style u-palette-1-dark-1 u-radius-6 u-btn-1" data-bs-toggle="modal" href="#"
-                  data-bs-target="#addRoom">ADD ROOM</button>
+                  data-bs-target="#addRoom">Add Room</button>
                   <div class="u-expanded-width u-table u-table-responsive u-table-1">
                     <table class="u-table-entity">
                       <colgroup>
@@ -209,10 +214,6 @@
                       </tbody>
                     </table>
                   </div>
-                  <!-- <a href="https://nicepage.com/website-mockup"
-                    class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-6 u-text-white u-btn-2">Update</a>
-                  <a href="https://nicepage.com/website-mockup"
-                    class="u-border-none u-btn u-btn-round u-button-style u-palette-2-base u-radius-6 u-btn-3">Delete</a> -->
                 </div>
               </div>
             </div>
@@ -315,18 +316,18 @@
             {% csrf_token %}
             <div class="mb-3">
               <b><label class="form-label">Room Number</label></b>
-              <input type="text" class="form-control" id="room_number" name="room_number" 
-                placeholder="Room Number" required="">
+              <input type="number" class="form-control" id="room_number" name="room_number" 
+                placeholder="" required="">
             </div>
             <div class="mb-3">
               <b><label class="form-label">Room Type</label></b>
               <input type="text" class="form-control" id="room_type" name="room_type" 
-                placeholder="Room Type" required="">
+                placeholder="" required="">
             </div>
             <div class="mb-3">
               <b><label class="form-label">Room Description</label></b>
               <input type="text" class="form-control" id="room_description" name="room_description" 
-                placeholder="Room Description" required="">
+                placeholder="" required="">
             </div>
             <div class="modal-footer u-align-center u-form-group u-form-submit">
               <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>

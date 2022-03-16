@@ -1,0 +1,127 @@
+.u-section-1 .u-sheet-1 {
+  min-height: 451px;
+}
+
+.u-section-1 .u-btn-1 {
+  border-style: none;
+  font-size: 0.9375rem;
+  background-image: none;
+  margin: 13px 0 0 auto;
+  padding: 8px 48px;
+}
+
+.u-section-1 .u-table-1 {
+  width: 1140px;
+  margin: 17px auto 0;
+}
+
+.u-section-1 .u-table-entity-1 {
+  min-height: 100px;
+}
+
+.u-section-1 .u-table-header-1 {
+  background-image: none;
+  font-size: 0.875rem;
+  font-weight: normal;
+}
+
+.u-block-3ec6-35 {
+  font-weight: 700;
+}
+
+.u-block-3ec6-83 {
+  height: 45px;
+}
+
+.u-section-1 .u-btn-2 {
+  border-style: none;
+  font-size: 0.625rem;
+  background-image: none;
+  margin: -254px 107px 0 auto;
+  padding: 4px 25px;
+}
+
+.u-section-1 .u-btn-3 {
+  border-style: none;
+  font-size: 0.625rem;
+  background-image: none;
+  margin: 33px 107px 0 auto;
+  padding: 4px 25px;
+}
+
+.u-section-1 .u-btn-4 {
+  border-style: none;
+  font-size: 0.625rem;
+  background-image: none;
+  margin: 33px 107px 0 auto;
+  padding: 4px 25px;
+}
+
+.u-section-1 .u-btn-5 {
+  border-style: none;
+  font-size: 0.625rem;
+  background-image: none;
+  margin: -138px 17px 0 auto;
+  padding: 4px 25px;
+}
+
+.u-section-1 .u-btn-6 {
+  border-style: none;
+  font-size: 0.625rem;
+  background-image: none;
+  margin: 33px 17px 60px auto;
+  padding: 4px 25px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-table-1 {
+    width: 940px;
+  }
+
+  .u-section-1 .u-btn-2 {
+    margin-right: 0;
+  }
+
+  .u-section-1 .u-btn-3 {
+    margin-right: 0;
+  }
+
+  .u-section-1 .u-btn-4 {
+    margin-right: 0;
+  }
+
+  .u-section-1 .u-btn-5 {
+    margin-right: 0;
+  }
+
+  .u-section-1 .u-btn-6 {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-1 .u-table-1 {
+    width: 720px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-btn-1 {
+    margin-top: 18px;
+  }
+
+  .u-section-1 .u-table-1 {
+    margin-top: 12px;
+    width: 540px;
+  }
+
+  .u-section-1 .u-table-header-1 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-table-1 {
+    width: 340px;
+  }
+}

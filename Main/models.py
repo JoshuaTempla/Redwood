@@ -4,6 +4,7 @@ from tkinter import CASCADE
 from tkinter.tix import Tree
 from django.db import models
 from django.db.models.base import Model
+from sklearn import model_selection
 #from pyrsistent import T
 
 
@@ -17,7 +18,7 @@ class Applicant(models.Model):
     applicant_address = models.CharField(max_length=40)
 
     def __str__(self):
-        return self.applicant_name
+        return self.applicant_email
 
     class meta:
         db_table = 'tblapplicant'
@@ -44,6 +45,9 @@ class Room(models.Model):
     class meta:
         db_table = 'tblroom'
 
+    #def __str__(self):
+        #return self.room_number
+
 
 class Reservation(models.Model):
     reservation_number = models.AutoField(primary_key=True)
@@ -54,3 +58,13 @@ class Reservation(models.Model):
 
     class meta:
         db_table = 'tblreservation'
+
+
+class RoomLedger(models.Model):
+    room_ledger_id = models.AutoField(primary_key=True)
+    date_of_use = models.DateField()
+    room_number = models.IntegerField()
+    room_type = models.CharField(max_length=1)
+    morning = models.IntegerField()
+    afternoon = models.IntegerField()
+    evening = models.IntegerField()

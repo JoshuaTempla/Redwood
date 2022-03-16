@@ -1,15 +1,30 @@
-from django.urls import path
-
+from django.urls import include, path
 from . import views
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
+from django.conf import settings
+
 
 # app_name = 'Website'
 
 urlpatterns = [
 
-    # HOME PAGE
-    path('', views.home, name="Home"),
-    path("About", views.about, name="About"),
-    path("Contact", views.contact, name="Contact"),
-    path("Rooms", views.rooms, name="Rooms"),
-    path("CreateRoom", views.create_room, name="CreateRoom")
+    # Start of user pages
+    path('Redwood-Home', views.home, name="Home"),
+    path("Redwood-About", views.about, name="About"),
+    path("Redwood-Contact", views.contact, name="Contact"),
+    path("Redwood-Rooms", views.rooms, name="Rooms"),
+    path("Redwood-Reservation", views.reservation, name="Reservation"),
+    # End of user pages
+
+    # icon browser tab
+    path("favicon.ico", RedirectView.as_view(
+        url=staticfiles_storage.url("favicon.ico"))),
+
+
+    # Start of admin pages
+    path("Admin-crudapplicants", views.crud_applicants, name="CrudApplicants"),
+    path("Admin-crudreservation", views.crud_reservation, name="CrudReservation"),
+    path("Admin-crudroomtypes", views.crud_room_types, name="CrudRoomTypes"),
+    path("Admin-crudrooms", views.crud_rooms, name="CrudRooms")
 ]
