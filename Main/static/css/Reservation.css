@@ -14,7 +14,7 @@ body {
 }
 
 #multistepsform {
-  width: 400px;
+  width: 600px;
   margin: 100px auto;
   text-align: center;
   position: relative;
@@ -83,17 +83,19 @@ body {
   margin-bottom: 20px;
 }
 #multistepsform #progressbar {
-  margin-bottom: 30px;
+  margin-bottom: 30px;  
   overflow: hidden;
   counter-reset: step;
+  width: 590px;
 }
 #multistepsform #progressbar li {
   list-style-type: none;
   color: #48553B;
   text-transform: uppercase;
   font-size: 9px;
-  width: 33.33%;
+  width: 20%;
   float: left;
+  /* position: relative; */
   position: relative;
 }
 #multistepsform #progressbar li:before {

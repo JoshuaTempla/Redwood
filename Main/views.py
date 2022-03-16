@@ -1,3 +1,4 @@
+from urllib import request
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from .forms import*
@@ -36,18 +37,46 @@ def rooms(response):
     return render(response, "Main/User/Rooms.html", context)
 
 
-def reservation(response):
+def reservation(request):
+
+    form = ReservationForm()
 
     # view data from database
     room_types = Room_Type.objects.all()
     room_type_in_rooms = Room.objects.all()
-    current_room = response.session['room_type']
+    current_room = request.session['room_type']
+  
+    selected_day = request.GET.get('format_date', None)
+    room = request.GET.get('room', None)
+    print("Date selected: ", selected_day)
+    print("Room selected: ", room)
+    
+    available_time_slot = RoomLedger.objects.raw('SELECT * FROM main_roomledger WHERE date_of_use = %s AND room_number = %s', [selected_day,room])
+    print("Available timeslots: ", available_time_slot)
+    
 
     context = {'current_room': current_room, 'room_types': room_types,
-               'room_type_in_rooms': room_type_in_rooms}
+               'room_type_in_rooms': room_type_in_rooms,
+               'available_time_slot': available_time_slot}
     # end of view
 
-    return render(response, "Main/User/Reservation.html", context)
+    return render(request, 'Main/User/Reservation.html', context)
+
+    # def reservation(response):
+
+    # # view data from database
+    # room_types = Room_Type.objects.all()
+    # room_type_in_rooms = Room.objects.all()
+    # current_room = response.session['room_type']
+    # #selected_day = response.session['selectedDay']
+    # #selected_day = request.GET.get
+    # #available_time_slot = RoomLedger.objects.filter(date_of_use = selected_day)
+
+    # context = {'current_room': current_room, 'room_types': room_types,
+    #            'room_type_in_rooms': room_type_in_rooms}
+    # # end of view
+
+    # return render(response, "Main/User/Reservation.html", context)
 
 # End of user pages
 
