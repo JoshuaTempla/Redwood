@@ -42,22 +42,26 @@ def reservation(request):
     form = ReservationForm()
 
     # view data from database
+    reservation = RoomLedger.objects.all()
     room_types = Room_Type.objects.all()
     room_type_in_rooms = Room.objects.all()
     current_room = request.session['room_type']
-  
+
     selected_day = request.GET.get('format_date', None)
     room = request.GET.get('room', None)
+
     print("Date selected: ", selected_day)
     print("Room selected: ", room)
-    
-    available_time_slot = RoomLedger.objects.raw('SELECT * FROM main_roomledger WHERE date_of_use = %s AND room_number = %s', [selected_day,room])
-    print("Available timeslots: ", available_time_slot)
-    
+
+    user_choose = RoomLedger.objects.filter(
+        date_of_use=selected_day, room_number=room)
+
+    # available_time_slot = RoomLedger.objects.raw('SELECT * FROM main_roomledger WHERE date_of_use = %s AND room_number = %s', [selected_day,room])
+    # print("Available timeslots: ", available_time_slot)
 
     context = {'current_room': current_room, 'room_types': room_types,
                'room_type_in_rooms': room_type_in_rooms,
-               'available_time_slot': available_time_slot}
+               'selected_day': selected_day, 'room': room, 'reservation': reservation, 'user_choose': user_choose}
     # end of view
 
     return render(request, 'Main/User/Reservation.html', context)

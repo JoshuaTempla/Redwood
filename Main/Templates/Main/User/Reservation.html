@@ -155,15 +155,15 @@
       <option selected hidden>Available Rooms</option>
       {% for room_type_in_room in room_type_in_rooms %}
         {% if current_room == room_type_in_room.room_type_id %}
-
          <option value="{{room_type_in_room.room_number}}">{{room_type_in_room.room_number}}</option>
-
         {% endif %}
       {% endfor %}
   <!-- <p>Alert the value: <button id="alert">Alert!</button> -->
   
     <input id="send" type="button" name="next" class="next action-button" value="Next" />
   </fieldset>
+  {% endif %}
+  {% endfor %}
 
 
   <fieldset>
@@ -173,16 +173,35 @@
   <select id="timeslots" name="timeslots" placeholder="" onchange="update()">
  
      <!-- <option value="">{{ timeslots.morning}}</option> -->
-     <option selected hidden>Available Timeslot</option>
-     {% for timeslot in available_time_slot %}
-      {% if timeslot.morning == Null %}
-        <option name="morning">Morning (9:00 to 12:00 PM)</option>
-      {% elif timeslot.afternoon == Null %}
-        <option name="afternoon">Afternoon (1:00 to 5:00 PM)</option>
-      {% elif timeslot.evening == Null %}
-        <option name="evening">Evening (6:00 to 10:00 PM)</option>
+    <option selected hidden>Available Timeslot</option>
+    {% for reservations in reservation %}
+      {% if current_room == reservations.room_type %}
+        <!-- 3 all -->
+          {% if reservations.morning == 0 and reservations.afternoon == 0 and reservations.evening == 0 %}
+            <option name="morning">Morning (9:00 to 12:00 PM)</option>
+            <option name="afternoon">Afternoon (1:00 to 5:00 PM)</option>
+            <option name="evening">Evening (6:00 to 10:00 PM)</option>
+        <!--2 by 2-->
+          {% elif reservations.morning == 0 and reservations.afternoon == 0 %}
+            <option name="morning">Morning (9:00 to 12:00 PM)</option>
+            <option name="afternoon">Afternoon (1:00 to 5:00 PM)</option>
+          {% elif reservations.morning == 0 and reservations.evening == 0 %}
+            <option name="morning">Morning (9:00 to 12:00 PM)</option>
+            <option name="evening">Evening (6:00 to 10:00 PM)</option>
+          {% elif reservations.afternoon == 0 and reservations.evening == 0 %}
+            <option name="afternoon">Afternoon (1:00 to 5:00 PM)</option>
+            <option name="evening">Evening (6:00 to 10:00 PM)</option>
+        <!--1 by 1  -->
+          {% elif reservations.morning == 0 %}
+            <option name="morning">Morning (9:00 to 12:00 PM)</option>
+          {% elif reservations.afternoon == 0 %}
+            <option name="afternoon">Afternoon (1:00 to 5:00 PM)</option>
+          {% elif reservations.evening == 0 %}
+            <option name="evening">Evening (6:00 to 10:00 PM)</option>
+          {% else %}
+            <option hidden>Nothing to show here!</option>
+        {% endif %}
       {% endif %}
-
     {% endfor %}
      
 
@@ -216,7 +235,5 @@
     <!-- <input type="submit" name="submit" class="submit action-button" value="Submit" /> -->
   </fieldset>
 </form>
-{% endif %}
-{% endfor %}
 </body>
 </html>
