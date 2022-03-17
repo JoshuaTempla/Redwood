@@ -34,6 +34,7 @@ body {
   display: none;
 }
 #multistepsform input,
+#multistepsform button,
 #multistepsform select,
 #multistepsform textarea {
   padding: 15px;
@@ -86,7 +87,7 @@ body {
   margin-bottom: 30px;  
   overflow: hidden;
   counter-reset: step;
-  width: 590px;
+  width: 750px;
 }
 #multistepsform #progressbar li {
   list-style-type: none;

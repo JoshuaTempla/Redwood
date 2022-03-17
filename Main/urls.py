@@ -15,6 +15,7 @@ urlpatterns = [
     path("Redwood-Contact", views.contact, name="Contact"),
     path("Redwood-Rooms", views.rooms, name="Rooms"),
     path("Redwood-Reservation", views.reservation, name="Reservation"),
+    path("Redwood-Date", views.date, name="Date"),
     # End of user pages
 
     # icon browser tab

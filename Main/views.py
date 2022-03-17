@@ -30,19 +30,37 @@ def rooms(response):
         if 'btnReserve' in response.POST:
             current_room_type = response.POST.get("room_type")
             response.session['room_type'] = current_room_type
-            return redirect(reservation)
+            return redirect(date)
         else:
             return HttpResponse('You are in the wrong page')
 
     return render(response, "Main/User/Rooms.html", context)
 
 
-def reservation(request):
-
-    form = ReservationForm()
-
-    # view data from database
+def date(response):
     room_types = Room_Type.objects.all()
+    room_type_in_rooms = Room.objects.all()
+    current_room = response.session['room_type']
+
+    context = {'room_types': room_types,
+               'room_type_in_rooms': room_type_in_rooms, 'current_room': current_room}
+
+    if response.method == "POST":
+        if 'btnReserve' in response.POST:
+            chosen_room = response.POST.get("room")
+            response.session['room'] = chosen_room
+            used_date = response.POST.get("date")
+            response.session['date'] = used_date
+            return redirect(reservation)
+        else:
+            return HttpResponse('You are in the wrong page')
+    return render(response, "Main/User/Date.html", context)
+
+
+def reservation(response):
+
+    room_types = Room_Type.objects.all()
+<<<<<<< Updated upstream
     room_type_in_rooms = Room.objects.all()
     current_room = request.session['room_type']
 
@@ -54,13 +72,23 @@ def reservation(request):
     available_time_slot = RoomLedger.objects.raw(
         'SELECT * FROM main_roomledger WHERE date_of_use = %s AND room_number = %s', [selected_day, room])
     print("Available timeslots: ", available_time_slot)
+=======
+    room_ledger = RoomLedger.objects.all()
+    reservation = Reservation.objects.all()
+    current_room = response.session['room_type']
+    used_date = response.session['date']
+    chosen_room = response.session['room']
+>>>>>>> Stashed changes
 
     context = {'current_room': current_room, 'room_types': room_types,
-               'room_type_in_rooms': room_type_in_rooms,
-               'available_time_slot': available_time_slot}
-    # end of view
+               'used_date': used_date, 'reservation': reservation, 'room_ledger': room_ledger, 'chosen_room': chosen_room}
 
-    return render(request, 'Main/User/Reservation.html', context)
+    if response.method == "POST":
+        if 'previousDate' in response.POST:
+            return redirect(date)
+        else:
+            return HttpResponse('You are in the wrong page')
+    return render(response, 'Main/User/Reservation.html', context)
 
     # def reservation(response):
 
