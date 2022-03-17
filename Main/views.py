@@ -77,6 +77,9 @@ def reservation(response):
     current_room = response.session['room_type']
     used_date = response.session['date']
     chosen_room = response.session['room']
+
+    print(response.session['room'])
+
     context = {'current_room': current_room, 'room_types': room_types,
                'used_date': used_date, 'reservation': reservation, 'room_ledger': room_ledger, 'chosen_room': chosen_room}
 

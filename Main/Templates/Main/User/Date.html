@@ -16,7 +16,6 @@
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
   <script>
 
   $(function () {
@@ -156,7 +155,8 @@
          <option name="room" id="room" value="{{room_type_in_room.room_number}}">{{room_type_in_room.room_number}}</option>
         {% endif %}
       {% endfor %}
-    <input name="btnReserve" id="send" type="submit" class="next action-button" value="Next"/>
+    <input name="btnReserve" id="send" type="submit" class="next action-button" value="Next"></input>
+    <!-- <button name="btnReserve" class="next action-button">Submit</button> -->
   </fieldset>
 </form>
 {% endif %}
