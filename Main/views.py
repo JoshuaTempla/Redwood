@@ -45,15 +45,15 @@ def reservation(request):
     room_types = Room_Type.objects.all()
     room_type_in_rooms = Room.objects.all()
     current_room = request.session['room_type']
-  
+
     selected_day = request.GET.get('format_date', None)
     room = request.GET.get('room', None)
     print("Date selected: ", selected_day)
     print("Room selected: ", room)
-    
-    available_time_slot = RoomLedger.objects.raw('SELECT * FROM main_roomledger WHERE date_of_use = %s AND room_number = %s', [selected_day,room])
+
+    available_time_slot = RoomLedger.objects.raw(
+        'SELECT * FROM main_roomledger WHERE date_of_use = %s AND room_number = %s', [selected_day, room])
     print("Available timeslots: ", available_time_slot)
-    
 
     context = {'current_room': current_room, 'room_types': room_types,
                'room_type_in_rooms': room_type_in_rooms,
