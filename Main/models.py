@@ -45,8 +45,8 @@ class Room(models.Model):
     class meta:
         db_table = 'tblroom'
 
-    #def __str__(self):
-        #return self.room_number
+    # def __str__(self):
+        # return self.room_number
 
 
 class Reservation(models.Model):

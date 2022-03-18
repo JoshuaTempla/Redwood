@@ -7,133 +7,36 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redwood Civic Center</title>
-  <link rel="icon"href="{% static 'images/favicon.ico' %}">
+  <link rel="icon" href="{% static 'images/favicon.ico' %}">
   <link rel="stylesheet" href="{% static 'css/Reservation.css' %}">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
   <script src="{% static 'js/Reservation.js' %}" defer></script>
+
+  <!-- Dont Delete Script Below -->
   
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
-  $(function () {
-    $( "#datepicker" ).datepicker();
-    
-    //selecting the button and adding a click event
-    $("#send").click(function() {
-      //alerting the value inside the textbox
-      var date = $("#datepicker").datepicker("getDate");
-      // alert($.datepicker.formatDate("yy-mm-dd", date));
-
-      var format_date = $.datepicker.formatDate("yy-mm-dd", date);
-      //alert(format_date);
-      var e = document.getElementById('availableRooms');
-      //var room = e.value;
-      var room = e.options[e.selectedIndex].value;
-
-      
-
-      $.ajax({
-        type: "GET",
-        url: 'Redwood-Reservation',
-        // data: format_date,
-        data: {
-            "format_date": format_date,
-            "room": room
-        },
-        dataType: "json",
-        success: function (data) {
-            // any process in data
-            alert("successfull")
-        },
-        failure: function () {
-            alert("failure");
-        }
+  <!-- <script>
+    $(function () {
+        $("#datepicker").datepicker({
+            minDate: 0,
+            beforeShowDay: function (date) {
+                return [date.getDay() == 2 || date.getDay() == 4, ""]
+            }
+        });
     });
+</script> -->
 
+<!-- DONT DELETE SCRIPT ABOVE!!! -->
 
-    });
-
-    
-  });
-
-
-  //room
-
-  // $(function () {
-    
-  //   $("#sendRoom").click(function() {
-    
-  //     var e = document.getElementById('availableRooms');
-  //     var room = e.value;
-
-      
-
-  //     $.ajax({
-  //       type: "GET",
-  //       url: 'Redwood-Reservation',
-  //       // data: format_date,
-  //       data: {
-  //           "room": room,
-  //       },
-  //       dataType: "json",
-  //       success: function (data) {
-  //           // any process in data
-  //           alert("successfull")
-  //       },
-  //       failure: function () {
-  //           alert("failure");
-  //       }
-  //   });
-
-
-  //   });
-
-    
-  // });
-
-  // $(function update() {
-  //     var select = document.getElementById('timeslots');
-  //     var option = select.options[select.selectedIndex];
-  // });
-  // $("#sendRoom").click(function() {   
-
-  //     var select = document.getElementById('timeslots');
-  //     var option = select.options[select.selectedIndex];
-      
-
-  //     $.ajax({
-  //       type: "GET",
-  //       url: 'Redwood-Reservation',
-  //       // data: format_date,
-  //       data: {
-  //           "option": option,
-  //       },
-  //       dataType: "json",
-  //       success: function (data) {
-  //           // any process in data
-  //           alert("successfull")
-  //       },
-  //       failure: function () {
-  //           alert("failure");
-  //       }
-  //   });
-
-
-  //   });
-
-  </script>
-  
-
-  
 </head>
 <body>
   {% for room_type in room_types %}
   {% if current_room == room_type.room_type %}
   <!-- multistep form -->
-  <form id="multistepsform" autocomplete="off" method="POST" action="">
+  <form id="multistepsform" autocomplete="off" action ="{% url 'Reservation' %}">
     {% csrf_token %}
   <!-- progressbar -->
   <ul id="progressbar">
@@ -147,19 +50,19 @@
     <h2 class="fs-title">You chose room type ({{room_type.room_type}})</h2>
     <h3 class="fs-subtitle">Please fill up the following</h3>
     <!-- <input type="date" name="date" placeholder="Date"/> -->
-    <input type="date" id="date" name="date" placeholder="Date">
-    <select id="availableRooms"  placeholder="">
+    <input type="date" id="datepicker" name="date" placeholder="Date">
+    <select name="room" id="room" id="availableRooms"  placeholder="">
       <option selected hidden>Available Rooms</option>
       {% for room_type_in_room in room_type_in_rooms %}
         {% if current_room == room_type_in_room.room_type_id %}
-         <option name="room" id="room" value="{{room_type_in_room.room_number}}">{{room_type_in_room.room_number}}</option>
+         <option value="{{room_type_in_room.room_number}}">{{room_type_in_room.room_number}}</option>
         {% endif %}
       {% endfor %}
-    <input name="btnReserve" id="send" type="submit" class="next action-button" value="Next"></input>
-    <!-- <button name="btnReserve" class="next action-button">Submit</button> -->
+    </select>
+    <button  id="btnReserve" type="submit" class="next action-button" >Next</button>
   </fieldset>
-</form>
-{% endif %}
+  {% endif %}
 {% endfor %}
+</form>
 </body>
 </html>
