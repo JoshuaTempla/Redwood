@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from urllib import request
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -58,6 +59,18 @@ def reservation(request):
 
     reservation = RoomLedger.objects.raw('SELECT room_ledger_id, date_of_use, room_number, room_type, morning, afternoon, evening FROM main_roomledger WHERE date_of_use = %s AND room_number = %s AND room_type = %s', [
                                          user_chosen_date, user_chosen_room, current_room])
+
+    if reservation == NULL:
+        Ledger = RoomLedger()
+        Ledger.date_of_use = user_chosen_date
+        Ledger.room_number = user_chosen_room
+        Ledger.room_type = current_room
+        Ledger.morning = 0                                         
+        Ledger.afternoon= 0
+        Ledger.evening = 0
+        Ledger.save()
+
+
     context = {'current_room': current_room, 'room_types': room_types,
                'date': user_chosen_date,  'room_ledger': room_ledger, 'room': user_chosen_room, 'reservation': reservation}
     if request.method == "POST":
