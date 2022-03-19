@@ -35,26 +35,26 @@
         {% for reservations in reservation %}
           <!-- 3 all -->
               {% if reservations.morning == 0 and reservations.afternoon == 0 and reservations.evening == 0 %}
-                <option value="{{ room_type.morning }}" name="morning">Morning (9:00 to 12:00 PM)</option>
-                <option value="{{ room_type.afternoon }}" name="afternoon">Afternoon (1:00 to 5:00 PM)</option>
-                <option value="{{ room_type.evening }}" name="evening">Evening (6:00 to 10:00 PM)</option>
-              <!--2 by 2-->
+                <option value="morning" name="morning">Morning (9:00 to 12:00 PM)</option>
+                <option value="afternoon" name="afternoon">Afternoon (1:00 to 5:00 PM)</option>
+                <option value="evening" name="evening">Evening (6:00 to 10:00 PM)</option>
+              <!--2 by 2-->afternoon
               {% elif reservations.morning == 0 and reservations.afternoon == 0 %}
-                <option value="{{ room_type.morning }}" name="morning">Morning (9:00 to 12:00 PM)</option>
-                <option value="{{ room_type.afternoon }}" name="afternoon">Afternoon (1:00 to 5:00 PM)</option>
+                <option value="morning" name="morning">Morning (9:00 to 12:00 PM)</option>
+                <option value="afternoon" name="afternoon">Afternoon (1:00 to 5:00 PM)</option>
               {% elif reservations.morning == 0 and reservations.evening == 0 %}
-                <option value="{{ room_type.morning }}" name="morning">Morning (9:00 to 12:00 PM)</option>
-                <option value="{{ room_type.evening }}" name="evening">Evening (6:00 to 10:00 PM)</option>
+                <option value="morning}" name="morning">Morning (9:00 to 12:00 PM)</option>
+                <option value="evening" name="evening">Evening (6:00 to 10:00 PM)</option>
               {% elif reservations.afternoon == 0 and reservations.evening == 0 %}
-                <option value="{{ room_type.afternoon }}" name="afternoon">Afternoon (1:00 to 5:00 PM)</option>
-                <option value="{{ room_type.evening }}" name="evening">Evening (6:00 to 10:00 PM)</option>
+                <option value="afternoon" name="afternoon">Afternoon (1:00 to 5:00 PM)</option>
+                <option value="evening" name="evening">Evening (6:00 to 10:00 PM)</option>
               <!--1 by 1  -->
               {% elif reservations.morning == 0 %}
-                  <option value="{{ room_type.morning }}" name="morning">Morning (9:00 to 12:00 PM)</option>
+                  <option value="morning" name="morning">Morning (9:00 to 12:00 PM)</option>
               {% elif reservations.afternoon == 0 %}
-                <option value="{{ room_type.afternoon }}" name="afternoon">Afternoon (1:00 to 5:00 PM)</option>
+                <option value="afternoon" name="afternoon">Afternoon (1:00 to 5:00 PM)</option>
               {% elif reservations.evening == 0 %}
-                <option value="{{ room_type.evening }}" name="evening">Evening (6:00 to 10:00 PM)</option>
+                <option value="evening" name="evening">Evening (6:00 to 10:00 PM)</option>
               {% else %}
                 <option hidden>Nothing to show here!</option>
               {% endif %}
