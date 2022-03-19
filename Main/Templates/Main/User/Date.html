@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redwood Civic Center</title>
+  <link rel="icon" href="{% static 'images/favicon.ico' %}">
+  <link rel="stylesheet" href="{% static 'css/Reservation.css' %}">
+  <script src="{% static 'js/Reservation.js' %}" defer></script>
+
+  <!-- Dont Delete Script Below -->
+  
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+  <!-- <script>
+    $(function () {
+        $("#datepicker").datepicker({
+            minDate: 0,
+            beforeShowDay: function (date) {
+                return [date.getDay() == 2 || date.getDay() == 4, ""]
+            }
+        });
+    });
+</script> -->
+
+<!-- DONT DELETE SCRIPT ABOVE!!! -->
+
+</head>
+<body>
+  {% for room_type in room_types %}
+  {% if current_room == room_type.room_type %}
+  <!-- multistep form -->
+  <form id="multistepsform" autocomplete="off" action ="{% url 'Reservation' %}">
+    {% csrf_token %}
+  <!-- progressbar -->
+  <ul id="progressbar">
+    <li class="active">Date and Room</li>    
+    <li>Time Slots</li>
+    <li>Personal Details</li>
+    <li>Usage Fee</li>
+  </ul>
+  <!-- fieldsets -->
+  <fieldset>
+    <h2 class="fs-title">You chose room type ({{room_type.room_type}})</h2>
+    <h3 class="fs-subtitle">Please fill up the following</h3>
+    <!-- <input type="date" name="date" placeholder="Date"/> -->
+    <input type="date" id="datepicker" name="date" placeholder="Date">
+    <select name="room" id="room" id="availableRooms"  placeholder="">
+      <option selected hidden>Available Rooms</option>
+      {% for room_type_in_room in room_type_in_rooms %}
+        {% if current_room == room_type_in_room.room_type_id %}
+         <option value="{{room_type_in_room.room_number}}">{{room_type_in_room.room_number}}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+    <button  id="btnReserve" type="submit" class="next action-button" >Next</button>
+  </fieldset>
+  {% endif %}
+{% endfor %}
+</form>
+</body>
+</html>

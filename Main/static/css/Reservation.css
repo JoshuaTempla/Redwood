@@ -34,6 +34,8 @@ body {
   display: none;
 }
 #multistepsform input,
+#multistepsform a,
+#multistepsform button,
 #multistepsform select,
 #multistepsform textarea {
   padding: 15px;
@@ -47,7 +49,9 @@ body {
   font-size: 13px;
 }
 #multistepsform input:focus,
+#multistepsform a:focus,
 #multistepsform select:focus,
+#multistepsform button:focus,
 #multistepsform textarea:focus {
   border-color: #679b9b;
   outline: none;
