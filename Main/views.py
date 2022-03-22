@@ -31,11 +31,34 @@ def rooms(response):
             current_room_type = response.POST.get("room_type")
             response.session['room_type'] = current_room_type
             print(response.session['room_type'])
-            return redirect(date)
+            return redirect(applicant)
         else:
             return HttpResponse('You are in the wrong page')
 
     return render(response, "Main/User/Rooms.html", context)
+
+
+def applicant(response):
+
+    applicants = Applicant.objects.all()
+    current_room = response.session['room_type']
+    context = {'applicants': applicants, 'current_room': current_room}
+
+    if 'btnAddApplicant' in response.POST:
+        if response.POST.get('name') and response.POST.get('address') and response.POST.get('phone') and response.POST.get('email'):
+            add_applicant = Applicant()
+            add_applicant.applicant_name = response.POST.get(
+                'name')
+            add_applicant.applicant_address = response.POST.get(
+                'address')
+            add_applicant.applicant_contactNo = response.POST.get(
+                'phone')
+            add_applicant.applicant_email = response.POST.get(
+                'email')
+            add_applicant.save()
+            print('Successfully Added an applicant')
+            return redirect(date)
+    return render(response, "Main/User/Applicant.html", context)
 
 
 def date(request):
@@ -44,6 +67,13 @@ def date(request):
     current_room = request.session['room_type']
     context = {'room_types': room_types,
                'room_type_in_rooms': room_type_in_rooms, 'current_room': current_room}
+
+    if request.method == "POST":
+        if 'previousDate' in request.POST:
+            return redirect(applicant)
+        else:
+            return HttpResponse('You are in the wrong page')
+
     return render(request, "Main/User/Date.html", context)
 
 
@@ -58,20 +88,69 @@ def reservation(request):
 
     reservation = RoomLedger.objects.raw('SELECT room_ledger_id, date_of_use, room_number, room_type, morning, afternoon, evening FROM main_roomledger WHERE date_of_use = %s AND room_number = %s AND room_type = %s', [
                                          user_chosen_date, user_chosen_room, current_room])
-    context = {'current_room': current_room, 'room_types': room_types,
-               'date': user_chosen_date,  'room_ledger': room_ledger, 'room': user_chosen_room, 'reservation': reservation}
+    if 'btnSubmit' in request.POST:
+        if user_chosen_room and current_room and user_chosen_date and request.POST.get('timeslot') and request.POST.get('email'):
+            add_reservation = Reservation()
+            add_reservation.scheduled_date_of_use = user_chosen_date
+            add_reservation.room_number = Room.objects.get(
+                room_number=user_chosen_room)
+            add_reservation.applicant_email = Applicant.objects.get(
+                applicant_email=request.POST["email"])
+            add_reservation.usage_fee = request.POST.get('timeslot')
+            add_reservation.save()
+            messages.success(request, "You have made a reservation!")
+            print("request:::::::", request.POST.get('timeslot'))
+            print(add_reservation.usage_fee)
+            print('Successfully Added an RESERVATION!!!!!!!!!!!!!!!!!!!!!!!')
+
+            room_types = Room_Type.objects.raw(
+                'SELECT room_type, morning, afternoon, evening FROM main_room_type WHERE room_type = %s', [current_room])
+
+        # if request.POST.get('timeslot'):
+            for room_type in room_types:
+                print(room_type.morning)
+                print(request.POST.get('timeslot'))
+                print(room_type.afternoon)
+
+                morning_str = str(room_type.morning)
+                afternoon_str = str(room_type.afternoon)
+                evening_str = str(room_type.evening)
+                user_time_str = str(request.POST.get('timeslot'))
+
+                user_morning = morning_str == user_time_str
+                user_afternoon = afternoon_str == user_time_str
+                user_evening = evening_str == user_time_str
+
+                if morning_str == user_time_str:
+                    print("MORNINGGGGG", user_morning)
+                    print(room_type.morning)
+                    RoomLedger.objects.filter(room_number=user_chosen_room, date_of_use=user_chosen_date).update(
+                        morning=add_reservation.reservation_number)
+                elif afternoon_str == user_time_str:
+                    print("AFTERNOONNNNN", user_afternoon)
+                    print(room_type.afternoon)
+                    RoomLedger.objects.filter(room_number=user_chosen_room, date_of_use=user_chosen_date).update(
+                        afternoon=add_reservation.reservation_number)
+                elif evening_str == user_time_str:
+                    print("EVENINGGGGGGGG", user_evening)
+                    print(room_type.evening)
+                    RoomLedger.objects.filter(room_number=user_chosen_room, date_of_use=user_chosen_date).update(
+                        evening=add_reservation.reservation_number)
+                else:
+                    print("ANIMALLLL")
+
     if request.method == "POST":
         if 'previousDate' in request.POST:
             return redirect(date)
-        else:
-            return HttpResponse('You are in the wrong page')
+
+    context = {'current_room': current_room, 'room_types': room_types,
+               'date': user_chosen_date,  'room_ledger': room_ledger, 'room': user_chosen_room, 'reservation': reservation}
+
     return render(request, 'Main/User/Reservation.html', context)
 # End of user pages
 
 
 # Start of Admin Pages
-
-
 def crud_applicants(response):
 
     applicants = Applicant.objects.all()

@@ -161,7 +161,7 @@
             the&nbsp;Eyrie, which is considered impregnable.</p>
           <p class="u-align-left u-text u-text-4">Morning: ${{room_type.morning}}&nbsp; &nbsp; &nbsp;Afternon: ${{room_type.afternoon}}&nbsp; &nbsp; &nbsp;
             &nbsp;Evening: ${{room_type.evening}}</p>
-            <form action="" method="POST" target="_blank">
+            <form action="" method="POST" target="_self">
               {% csrf_token %}
             <input type="text" id="room_type" name="room_type" value="{{room_type.room_type}}" readonly hidden>
             <button type="submit" id ="btnReserve" name="btnReserve"
