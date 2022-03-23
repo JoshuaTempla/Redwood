@@ -98,10 +98,11 @@ def reservation(request):
         add_Ledger.afternoon = 0
         add_Ledger.evening = 0
         add_Ledger.save()
-        reservation = RoomLedger.objects.raw('SELECT room_ledger_id, date_of_use, room_number, room_type, morning, afternoon, evening FROM main_roomledger WHERE date_of_use = %s AND room_number = %s AND room_type = %s', [
-                                         user_chosen_date, user_chosen_room, current_room])
-    if 'btnSubmit' in request.POST:                  
-            
+
+    reservation = RoomLedger.objects.raw('SELECT room_ledger_id, date_of_use, room_number, room_type, morning, afternoon, evening FROM main_roomledger WHERE date_of_use = %s AND room_number = %s AND room_type = %s', [
+        user_chosen_date, user_chosen_room, current_room])
+
+    if 'btnSubmit' in request.POST:
         if user_chosen_room and current_room and user_chosen_date and request.POST.get('timeslot') and request.POST.get('email'):
             add_reservation = Reservation()
             add_reservation.scheduled_date_of_use = user_chosen_date
