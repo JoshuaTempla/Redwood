@@ -219,7 +219,14 @@ def crud_applicants(response):
 def crud_reservation(response):
 
     reservations = Reservation.objects.all()
-    context = {"reservations": reservations}
+    sql_reservations = Reservation.objects.raw(
+        'SELECT reservation_number, room_number_id AS MostBookedRoom, COUNT(room_number_id) as TotalOfReservation FROM main_reservation GROUP BY room_number_id ORDER BY TotalOfReservation DESC LIMIT 1')
+
+    sql_days = Reservation.objects.raw(
+        'SELECT reservation_number, scheduled_date_of_use AS DateOfUse, COUNT(room_number_id) AS NumberOfReservation FROM main_reservation GROUP BY scheduled_date_of_use')
+
+    context = {"reservations": reservations,
+               "sql_reservations": sql_reservations, "sql_days": sql_days}
 
     if response.method == "POST":
         if 'btnUpdate' in response.POST:
@@ -252,36 +259,43 @@ def crud_reservation(response):
     return render(response, "Main/Admin/CrudReservation.html", context)
 
 
-def crud_room_types(response):
+def crud_room_ledger(response):
 
-    room_types = Room_Type.objects.all()
-    context = {"room_types": room_types}
+    room_ledgers = RoomLedger.objects.all()
+    sql_ledgers = RoomLedger.objects.raw(
+        'SELECT room_ledger_id, date_of_use, room_number, morning, afternoon, evening FROM `main_roomledger` WHERE morning = 0 OR afternoon = 0 OR evening = 0')
+    context = {"room_ledgers": room_ledgers, "sql_ledgers": sql_ledgers}
 
     if response.method == "POST":
         if 'btnUpdate' in response.POST:
+            room_ledger_id = response.POST.get("room_ledger_id")
+            date_of_use = response.POST.get("date_of_use")
+            room_number = response.POST.get("room_number")
             room_type = response.POST.get("room_type")
             morning = response.POST.get("morning")
             afternoon = response.POST.get("afternoon")
             evening = response.POST.get("evening")
-            Room_Type.objects.filter(room_type=room_type).update(
-                morning=morning, afternoon=afternoon, evening=evening)
+            RoomLedger.objects.filter(room_ledger_id=room_ledger_id).update(
+                date_of_use=date_of_use, room_number=room_number, room_type=room_type, morning=morning, afternoon=afternoon, evening=evening)
 
         elif 'btnDelete' in response.POST:
-            room_type = response.POST.get("room_type")
-            Room_Type.objects.filter(room_type=room_type).delete()
+            room_ledger_id = response.POST.get("room_ledger_id")
+            RoomLedger.objects.filter(room_ledger_id=room_ledger_id).delete()
 
-        elif 'btnAddRoomType' in response.POST:
-            if response.POST.get('room_type') and response.POST.get('morning') and response.POST.get('afternoon') and response.POST.get('evening'):
-                add_room_type = Room_Type()
-                add_room_type.room_type = response.POST.get('room_type')
-                add_room_type.morning = response.POST.get('morning')
-                add_room_type.afternoon = response.POST.get('afternoon')
-                add_room_type.evening = response.POST.get('evening')
-                add_room_type.save()
+        elif 'btnAddRoomLedger' in response.POST:
+            if response.POST.get('date_of_use') and response.POST.get('room_number') and response.POST.get('room_type') and response.POST.get('morning') and response.POST.get('afternoon') and response.POST.get('evening'):
+                add_room_ledger = RoomLedger()
+                add_room_ledger.date_of_use = response.POST.get('date_of_use')
+                add_room_ledger.room_number = response.POST.get('room_number')
+                add_room_ledger.room_type = response.POST.get('room_type')
+                add_room_ledger.morning = response.POST.get('morning')
+                add_room_ledger.afternoon = response.POST.get('afternoon')
+                add_room_ledger.evening = response.POST.get('evening')
+                add_room_ledger.save()
                 messages.success(
-                    response, "A Different Kind of Room has Successfully Added!!!")
+                    response, "A Room Ledger has Successfully Added!!!")
 
-    return render(response, "Main/Admin/CrudRoomTypes.html", context)
+    return render(response, "Main/Admin/CrudRoomLedger.html", context)
 
 
 def crud_rooms(response):

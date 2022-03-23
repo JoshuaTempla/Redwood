@@ -30,7 +30,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
   <script>
     $(document).ready(function () {
-      $('#book_list_datatable').DataTable();
+      $('#reservation_datatable').DataTable();
     });
   </script>
 
@@ -83,7 +83,7 @@
           <ul class="u-custom-font u-font-roboto u-nav u-spacing-40 u-unstyled u-nav-1">
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-hover-grey-90"
-                href="{% url 'CrudRoomTypes' %}" style="padding: 6px 20px;">Room Types</a>
+                href="{% url 'CrudRoomLedger' %}" style="padding: 6px 20px;">Room Ledger</a>
             </li>
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-hover-grey-90"
@@ -96,8 +96,8 @@
             <div class="u-inner-container-layout u-sidenav-overflow">
               <div class="u-menu-close"></div>
               <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'CrudRoomTypes' %}"
-                    style="padding: 6px 20px;">Room Types</a>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'CrudRoomLedger' %}"
+                    style="padding: 6px 20px;">Room Ledger</a>
                 </li>
                 <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'CrudReservation' %}"
                     style="padding: 6px 20px;">Reservation Ledger</a>
@@ -162,7 +162,7 @@
       <a data-bs-toggle="modal" href="#" data-bs-target="#addReservation"
         class="u-border-none u-btn u-btn-round u-button-style u-palette-1-dark-1 u-radius-6 u-btn-1">Add Reservation</a>
       <div class="u-table u-table-responsive u-table-1">
-        <table class="u-table-entity u-table-entity-1">
+        <table id="reservation_datatable" class="u-table-entity u-table-entity-1">
           <colgroup>
             <!-- <col width="11%">
             <col width="12.9%"> -->
@@ -198,6 +198,48 @@
                   class="u-border-none u-btn u-btn-round u-button-style u-palette-2-base u-radius-6 u-text-white u-btn-3"
                   style="margin-right: 20px; margin-top: 1%;">Delete</a>
               </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section  id="carousel_0a0c" style="margin-top:8em">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <div class="u-table u-table-responsive u-table-1">
+        <table id="reservation_datatable" class="u-table-entity u-table-entity-1">
+          <thead class="u-align-center u-custom-color-12 u-custom-font u-font-roboto u-table-header u-table-header-1">
+            <tr style="height: 64px;">
+              <th class="u-table-cell">Date of Use</th>
+              <th class="u-table-cell">Total Number of Reservation</th>
+          </thead>
+          <tbody class="u-align-center u-table-alt-custom-color-13 u-table-body">
+            {% for sql_day in sql_days %}
+            <tr style="height: 55px;">
+              <td class="u-table-cell">{{sql_day.DateOfUse}}</td>
+              <td class="u-table-cell">{{sql_day.NumberOfReservation}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section id="carousel_0a0c" style="margin-top:8em">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <div class="u-table u-table-responsive u-table-1">
+        <table id="reservation_datatable" class="u-table-entity u-table-entity-1">
+          <thead class="u-align-center u-custom-color-12 u-custom-font u-font-roboto u-table-header u-table-header-1">
+            <tr style="height: 64px;">
+              <th class="u-table-cell">Most Reserved Room</th>
+              <th class="u-table-cell">Total Number of Reservation</th>
+          </thead>
+          <tbody class="u-align-center u-table-alt-custom-color-13 u-table-body">
+            {% for sql_reservation in sql_reservations %}
+            <tr style="height: 55px;">
+              <td class="u-table-cell">{{sql_reservation.MostBookedRoom}}</td>
+              <td class="u-table-cell">{{sql_reservation.TotalOfReservation}}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -352,10 +394,6 @@
       </div>
     </div>
   </div>
-
-
-
-
   <section class="u-backlink u-clearfix u-grey-80" style="margin-top:3em">
     <a class="u-link" href="{% url 'Home' %}" target="">
       <span>Redwood Civic Center (Reservation System)</span>
