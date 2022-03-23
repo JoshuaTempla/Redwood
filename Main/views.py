@@ -7,28 +7,35 @@ from Main.models import Room
 from Main.models import Applicant
 
 
-# Start of user pages.
+#################################### Start of user pages ###################################
 
 def home(response):
     return render(response, "Main/User/Home.html", {})
+
+# About Us page
 
 
 def about(response):
     return render(response, "Main/User/About.html", {})
 
+# Contact Us page
+
 
 def contact(response):
     return render(response, "Main/User/Contact.html", {})
 
+# User choose room page
+
 
 def rooms(response):
-
     room_types = Room_Type.objects.all()
     context = {"room_types": room_types}
 
     if response.method == "POST":
         if 'btnReserve' in response.POST:
+            # Get the choice of room type ( A, B, C, D)
             current_room_type = response.POST.get("room_type")
+            # Put it into session
             response.session['room_type'] = current_room_type
             print(response.session['room_type'])
             return redirect(applicant)
@@ -38,12 +45,14 @@ def rooms(response):
     return render(response, "Main/User/Rooms.html", context)
 
 
+# User fill up form 1 ( User/Applicant Details )
 def applicant(response):
 
     applicants = Applicant.objects.all()
     current_room = response.session['room_type']
     context = {'applicants': applicants, 'current_room': current_room}
 
+    # After filling up, the applicant details will be save into the database.
     if 'btnAddApplicant' in response.POST:
         if response.POST.get('name') and response.POST.get('address') and response.POST.get('phone') and response.POST.get('email'):
             add_applicant = Applicant()
@@ -59,6 +68,8 @@ def applicant(response):
             print('Successfully Added an applicant')
             return redirect(date)
     return render(response, "Main/User/Applicant.html", context)
+
+# User fill up form 2 ( User/Applicant choose date and room)
 
 
 def date(request):
@@ -76,6 +87,8 @@ def date(request):
 
     return render(request, "Main/User/Date.html", context)
 
+# User fill up form 3 ( User/Applicant fill up the remaining fields)
+
 
 def reservation(request):
 
@@ -83,12 +96,14 @@ def reservation(request):
     room_ledger = RoomLedger.objects.all()
     current_room = request.session['room_type']
 
+    # From the form 2 where user/applicant choose room and date
     user_chosen_room = request.GET['room']
     user_chosen_date = request.GET['date']
 
     reservation = RoomLedger.objects.raw('SELECT room_ledger_id, date_of_use, room_number, room_type, morning, afternoon, evening FROM main_roomledger WHERE date_of_use = %s AND room_number = %s AND room_type = %s', [
                                          user_chosen_date, user_chosen_room, current_room])
 
+    # If the chosen date and room number is not in the database, then it will automatically added in the database
     if not reservation:
         add_Ledger = RoomLedger()
         add_Ledger.date_of_use = user_chosen_date
@@ -102,6 +117,7 @@ def reservation(request):
     reservation = RoomLedger.objects.raw('SELECT room_ledger_id, date_of_use, room_number, room_type, morning, afternoon, evening FROM main_roomledger WHERE date_of_use = %s AND room_number = %s AND room_type = %s', [
         user_chosen_date, user_chosen_room, current_room])
 
+    # Submit the reservation form
     if 'btnSubmit' in request.POST:
         if user_chosen_room and current_room and user_chosen_date and request.POST.get('timeslot') and request.POST.get('email'):
             add_reservation = Reservation()
@@ -120,7 +136,6 @@ def reservation(request):
             room_types = Room_Type.objects.raw(
                 'SELECT room_type, morning, afternoon, evening FROM main_room_type WHERE room_type = %s', [current_room])
 
-        # if request.POST.get('timeslot'):
             for room_type in room_types:
                 print(room_type.morning)
                 print(request.POST.get('timeslot'))
@@ -136,22 +151,22 @@ def reservation(request):
                 user_evening = evening_str == user_time_str
 
                 if morning_str == user_time_str:
-                    print("MORNINGGGGG", user_morning)
+                    print("The usage fee of morning =", user_morning)
                     print(room_type.morning)
                     RoomLedger.objects.filter(room_number=user_chosen_room, date_of_use=user_chosen_date).update(
                         morning=add_reservation.reservation_number)
                 elif afternoon_str == user_time_str:
-                    print("AFTERNOONNNNN", user_afternoon)
+                    print("The usage fee of afternoon", user_afternoon)
                     print(room_type.afternoon)
                     RoomLedger.objects.filter(room_number=user_chosen_room, date_of_use=user_chosen_date).update(
                         afternoon=add_reservation.reservation_number)
                 elif evening_str == user_time_str:
-                    print("EVENINGGGGGGGG", user_evening)
+                    print("The usage fee of evening", user_evening)
                     print(room_type.evening)
                     RoomLedger.objects.filter(room_number=user_chosen_room, date_of_use=user_chosen_date).update(
                         evening=add_reservation.reservation_number)
                 else:
-                    print("ANIMALLLL")
+                    print("No usage fee to be display")
 
     if request.method == "POST":
         if 'previousDate' in request.POST:
@@ -161,10 +176,11 @@ def reservation(request):
                'date': user_chosen_date,  'room_ledger': room_ledger, 'room': user_chosen_room, 'reservation': reservation}
 
     return render(request, 'Main/User/Reservation.html', context)
-# End of user pages
+
+################################### End of user pages ###################################
 
 
-# Start of Admin Pages
+#################################### Start of Admin Pages ###################################
 def crud_applicants(response):
 
     applicants = Applicant.objects.all()
