@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-f+ni$rwaa@v2ah$fh7l1ra87-!%f#r&h^kr$t50$@ac5rl^-4y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['templa-redwoodciviccenter.azurewebsites.net']
+ALLOWED_HOSTS = ['https://templa-redwoodciviccenter.azurewebsites.net/']
 
 
 # Application definition
