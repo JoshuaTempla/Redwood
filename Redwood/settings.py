@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-f+ni$rwaa@v2ah$fh7l1ra87-!%f#r&h^kr$t50$@ac5rl^-4y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False  
 
-ALLOWED_HOSTS = ['https://molina-my-first-azure-deployed-app.azurewebsites.net','molina-my-first-azure-deployed-app.azurewebsites.net','*','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['https://molina-redwoodconferenceroomreservationsystem.azurewebsites.net','molina-redwoodconferenceroomreservationsystem.azurewebsites.net','*','localhost','127.0.0.1']
 
 
 # Application definition
@@ -90,10 +90,10 @@ WSGI_APPLICATION = 'Redwood.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'it342-dbstudent-molina',
-        'USER': 'MonaMolina',
-        'PASSWORD': '103101Moniel*22',
-        'HOST': 'it342-dbstudent-molina.postgres.database.azure.com',
+        'NAME': 'molina-it342-dbstudent',
+        'USER': 'Mona',
+        'PASSWORD': 'it342*22',
+        'HOST': 'molina-it342-dbstudent.postgres.database.azure.com',
         'PORT': '3306',
         'OPTIONS': {
             "sslmode": "required",
