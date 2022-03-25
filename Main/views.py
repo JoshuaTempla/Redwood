@@ -57,11 +57,6 @@ def reservation(request):
     user_chosen_room = request.GET['room']
     user_chosen_date = request.GET['date']
 
-    # reservation = RoomLedger.objects.raw(
-    #     'SELECT room_ledger_id, date_of_use, room_number, room_type, morning, afternoon, evening FROM main_roomledger WHERE date_of_use = %s AND room_number = %s AND room_type = %s', [
-    #     user_chosen_date, user_chosen_room, current_room]
-    # )
-
     reservation = RoomLedger.objects.filter(date_of_use = user_chosen_date).filter(room_number = user_chosen_room).filter(room_type = current_room)
     room_prices = Room_Type.objects.filter(room_type = current_room)
     print(reservation)
@@ -113,26 +108,7 @@ def reservation(request):
         else:
             return HttpResponse('You are in the wrong page')
 
-    # if request.method == 'POST':
-    #     if 'submit' in request.POST:
-    #         if request.POST.get('timeslots') and request.POST.get('name') and request.POST.get('email') and request.POST.get('phone') and request.POST.get('address'):
-    #             add_Reservation = Reservation()
-    #             add_Reservation.applicant_email = request.POST.get('email')
-    #             add_Reservation.room_number = user_chosen_room
-    #             add_Reservation.scheduled_date_of_use = user_chosen_date
-    #             add_Reservation.time_slot = request.POST.get('timeslots')
-
-    #             if request.POST.get('timeslots') == 'morning':
-    #                 add_Reservation.usage_fee = room_prices.morning
-    #             elif request.POST.get('timeslots') == 'afternoon':
-    #                 add_Reservation.usage_fee = room_prices.afternoon
-    #             else:
-    #                 add_Reservation.usage_fee = room_prices.evening 
-                
-    #             add_Reservation.save()
-
-
-            
+           
     return render(request, 'Main/User/Reservation.html', context)
 # End of user pages
 
