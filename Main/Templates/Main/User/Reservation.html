@@ -39,29 +39,52 @@
             <option name="morning" value="{{room_type.morning}}">Morning (9:00 to 12:00 PM)</option>
             <option name="afternoon" value="{{room_type.afternoon}}">Afternoon (1:00 to 5:00 PM)</option>
             <option name="evening" value="{{room_type.evening}}">Evening (6:00 to 10:00 PM)</option>
+            <input type="submit" name="previousDate" class="previous action-button" value="Previous" />
+            <input type="button" name="next" class="next action-button" value="Next" />
             <!--2 by 2-->
             {% elif reservations.morning == 0 and reservations.afternoon == 0 %}
             <option name="morning" value="{{room_type.morning}}">Morning (9:00 to 12:00 PM)</option>
             <option name="afternoon" value="{{room_type.afternoon}}">Afternoon (1:00 to 5:00 PM)</option>
+            <option name="evening" value="{{room_type.evening}}" disabled>Evening (Already Taken)</option>
+            <input type="submit" name="previousDate" class="previous action-button" value="Previous" />
+            <input type="button" name="next" class="next action-button" value="Next" />
             {% elif reservations.morning == 0 and reservations.evening == 0 %}
             <option name="morning" value="{{room_type.morning}}">Morning (9:00 to 12:00 PM)</option>
+            <option name="afternoon" value="{{room_type.afternoon}}" disabled>Afternoon (Already Taken)</option>
             <option name="evening" value="{{room_type.evening}}">Evening (6:00 to 10:00 PM)</option>
+            <input type="submit" name="previousDate" class="previous action-button" value="Previous" />
+            <input type="button" name="next" class="next action-button" value="Next" />
             {% elif reservations.afternoon == 0 and reservations.evening == 0 %}
+            <option name="morning" value="{{room_type.morning}}" disabled>Morning (Already Taken)</option>
             <option name="afternoon" value="{{room_type.afternoon}}">Afternoon (1:00 to 5:00 PM)</option>
             <option name="evening" value="{{room_type.evening}}">Evening (6:00 to 10:00 PM)</option>
+            <input type="submit" name="previousDate" class="previous action-button" value="Previous" />
+            <input type="button" name="next" class="next action-button" value="Next" />
             <!--1 by 1  -->
             {% elif reservations.morning == 0 %}
             <option name="morning" value="{{room_type.morning}}">Morning (9:00 to 12:00 PM)</option>
+            <option name="afternoon" value="{{room_type.afternoon}}" disabled>Afternoon (Already Taken)</option>
+            <option name="evening" value="{{room_type.evening}}" disabled>Evening (Already Taken)</option>
+            <input type="submit" name="previousDate" class="previous action-button" value="Previous" />
+            <input type="button" name="next" class="next action-button" value="Next" />
             {% elif reservations.afternoon == 0 %}
+            <option name="morning" value="{{room_type.morning}}" disabled>Morning (Already Taken)</option>
             <option name="afternoon" value="{{room_type.afternoon}}">Afternoon (1:00 to 5:00 PM)</option>
+            <option name="evening" value="{{room_type.evening}}" disabled>Evening (Already Taken)</option>
+            <input type="submit" name="previousDate" class="previous action-button" value="Previous" />
+            <input type="button" name="next" class="next action-button" value="Next" />
             {% elif reservations.evening == 0 %}
+            <option name="morning" value="{{room_type.morning}}" disabled>Morning (Already Taken)</option>
+            <option name="afternoon" value="{{room_type.afternoon}}" disabled>Afternoon (Already Taken)</option>
             <option name="evening" value="{{room_type.evening}}">Evening (6:00 to 10:00 PM)</option>
+            <input type="submit" name="previousDate" class="previous action-button" value="Previous" />
+            <input type="button" name="next" class="next action-button" value="Next" />
             {% else %}
-            <option hidden>Nothing to show here!</option>
+            <option disabled>All slots are taken! Please choose another room or date</option>
+            <input type="submit" name="previousDate" class="previous action-button" value="Previous" />
+            <input type="button" name="next" class="next action-button" value="Next" disabled/>
             {% endif %}
       </select>
-      <input type="submit" name="previousDate" class="previous action-button" value="Previous" />
-      <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
     <fieldset>
       <h2 class="fs-title">Summary</h2>
