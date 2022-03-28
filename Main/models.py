@@ -4,7 +4,6 @@ from tkinter import CASCADE
 from tkinter.tix import Tree
 from django.db import models
 from django.db.models.base import Model
-from sklearn import model_selection
 #from pyrsistent import T
 
 
