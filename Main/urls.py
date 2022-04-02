@@ -29,5 +29,6 @@ urlpatterns = [
     path("Admin-crudapplicants", views.crud_applicants, name="CrudApplicants"),
     path("Admin-crudreservation", views.crud_reservation, name="CrudReservation"),
     path("Admin-crudroomledger", views.crud_room_ledger, name="CrudRoomLedger"),
+    path("Admin-crudroomtype", views.crud_room_type, name="CrudRoomType"),
     path("Admin-crudrooms", views.crud_rooms, name="CrudRooms")
 ]
