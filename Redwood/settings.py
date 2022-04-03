@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['group10-redwood.azurewebsites.net']
 
-    
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,6 +49,7 @@ STATIC_ROOT = BASE_DIR/'staticfiles'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
