@@ -161,7 +161,7 @@
             the&nbsp;Eyrie, which is considered impregnable.</p>
           <p class="u-align-left u-text u-text-4">Morning: ${{room_type.morning}}&nbsp; &nbsp; &nbsp;Afternon: ${{room_type.afternoon}}&nbsp; &nbsp; &nbsp;
             &nbsp;Evening: ${{room_type.evening}}</p>
-            <form action="" method="POST" target="_blank">
+            <form action="" method="POST" target="_self">
               {% csrf_token %}
             <input type="text" id="room_type" name="room_type" value="{{room_type.room_type}}" readonly hidden>
             <button type="submit" id ="btnReserve" name="btnReserve"
@@ -188,7 +188,7 @@
             Stormlands.</p>
           <p class="u-align-left u-text u-text-4">Morning: ${{room_type.morning}}&nbsp; &nbsp; &nbsp;Afternon: ${{room_type.afternoon}}&nbsp; &nbsp; &nbsp;
             &nbsp;Evening: ${{room_type.evening}}</p>
-            <form action="" method="POST" target="_blank">
+            <form action="" method="POST" target="_self">
               {% csrf_token %}
               <input type="text" id="room_type" name="room_type" value="{{room_type.room_type}}" readonly hidden>
             <button type="submit" id ="btnReserve" name="btnReserve"
@@ -214,7 +214,7 @@
             Their lands are southeast of the Rock and include a towerhouse.</p>
           <p class="u-align-left u-text u-text-4">Morning: ${{room_type.morning}}&nbsp; &nbsp; &nbsp;Afternon: ${{room_type.afternoon}}&nbsp; &nbsp; &nbsp;
             &nbsp;Evening: ${{room_type.evening}}</p>
-            <form action="" method="POST" target="_blank">
+            <form action="" method="POST" target="_self">
               {% csrf_token %}
               <input type="text" id="room_type" name="room_type" value="{{room_type.room_type}}" readonly hidden>
           <button type="submit" id ="btnReserve" name="btnReserve"
@@ -239,7 +239,7 @@
           <p class="u-align-right u-text u-text-black u-text-3"> Room Dayne of Starfall is a noble house from Starfall
             in Redwood. They are among the principal rooms sworn to House Martell. The Sword of the Morning is a title
             given to a Dayne knight who is considered worthy of wielding the greatsword Dawn</p>
-            <form action="" method="POST" target="_blank">
+            <form action="" method="POST" target="_self">
               {% csrf_token %}
               <input type="text" id="room_type" name="room_type" value="{{room_type.room_type}}" readonly hidden>
           <button type="submit" id ="btnReserve" name="btnReserve"

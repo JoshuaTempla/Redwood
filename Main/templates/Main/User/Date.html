@@ -40,14 +40,16 @@
     {% csrf_token %}
   <!-- progressbar -->
   <ul id="progressbar">
-    <li class="active">Date and Room</li>    
+    <li class="active">Personal Details</li>
+    <li class="active">Date and Room</li>        
     <li>Time Slots</li>
-    <li>Personal Details</li>
-    <li>Usage Fee</li>
+    <li>Summary</li>
   </ul>
   <!-- fieldsets -->
   <fieldset>
     <h2 class="fs-title">You chose room type ({{room_type.room_type}})</h2>
+  {% endif %}
+  {% endfor %}
     <h3 class="fs-subtitle">Please fill up the following</h3>
     <!-- <input type="date" name="date" placeholder="Date"/> -->
     <input type="date" id="datepicker" name="date" placeholder="Date">
@@ -59,10 +61,9 @@
         {% endif %}
       {% endfor %}
     </select>
+    <input type="button" name="previousDate" class="previous action-button" value="Previous" />
     <button  id="btnReserve" type="submit" class="next action-button" >Next</button>
   </fieldset>
-  {% endif %}
-{% endfor %}
 </form>
 </body>
 </html>

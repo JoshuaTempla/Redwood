@@ -14,8 +14,10 @@ urlpatterns = [
     path("Redwood-About", views.about, name="About"),
     path("Redwood-Contact", views.contact, name="Contact"),
     path("Redwood-Rooms", views.rooms, name="Rooms"),
-    path("Redwood-Reservation", views.reservation, name="Reservation"),
+    path("Redwood-ApplicantDetails", views.applicant, name="Applicant"),
     path("Redwood-Date", views.date, name="Date"),
+    path("Redwood-Reservation", views.reservation, name="Reservation"),
+
     # End of user pages
 
     # icon browser tab
@@ -26,6 +28,6 @@ urlpatterns = [
     # Start of admin pages
     path("Admin-crudapplicants", views.crud_applicants, name="CrudApplicants"),
     path("Admin-crudreservation", views.crud_reservation, name="CrudReservation"),
-    path("Admin-crudroomtypes", views.crud_room_types, name="CrudRoomTypes"),
+    path("Admin-crudroomledger", views.crud_room_ledger, name="CrudRoomLedger"),
     path("Admin-crudrooms", views.crud_rooms, name="CrudRooms")
 ]

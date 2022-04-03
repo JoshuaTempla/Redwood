@@ -4,7 +4,6 @@ from tkinter import CASCADE
 from tkinter.tix import Tree
 from django.db import models
 from django.db.models.base import Model
-from sklearn import model_selection
 #from pyrsistent import T
 
 
@@ -54,7 +53,6 @@ class Reservation(models.Model):
     applicant_email = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     room_number = models.ForeignKey(Room, on_delete=models.CASCADE)
     scheduled_date_of_use = models.DateField()
-    time_slot = models.CharField(max_length=40)
     usage_fee = models.FloatField()
 
     class meta:

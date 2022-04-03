@@ -30,7 +30,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
   <script>
     $(document).ready(function () {
-      $('#book_list_datatable').DataTable();
+      $('#applicants_datatable').DataTable();
     });
   </script>
   <meta name="generator" content="Nicepage 4.6.5, nicepage.com">
@@ -80,7 +80,7 @@
           <ul class="u-custom-font u-font-roboto u-nav u-spacing-40 u-unstyled u-nav-1">
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-hover-grey-90"
-                href="{% url 'CrudRoomTypes' %}" style="padding: 6px 20px;">Room Types</a>
+                href="{% url 'CrudRoomLedger' %}" style="padding: 6px 20px;">Room Ledger</a>
             </li>
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-hover-grey-90"
@@ -93,8 +93,8 @@
             <div class="u-inner-container-layout u-sidenav-overflow">
               <div class="u-menu-close"></div>
               <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'CrudRoomTypes' %}"
-                    style="padding: 6px 20px;">Room Types</a>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'CrudRoomLedger' %}"
+                    style="padding: 6px 20px;">Room Ledger</a>
                 </li>
                 <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'CrudReservation' %}"
                     style="padding: 6px 20px;">Reservation Ledger</a>
@@ -159,7 +159,7 @@
       <a data-bs-toggle="modal" href="#" data-bs-target="#addApplicant"
         class="u-border-none u-btn u-btn-round u-button-style u-palette-1-dark-1 u-radius-6 u-btn-1">Add Applicant</a>
       <div class="u-expanded-width u-table u-table-responsive u-table-1">
-        <table class="u-table-entity">
+        <table id="applicants_datatable" class="u-table-entity">
           <colgroup>
             <col width="10%">
             <col width="18.3%">
@@ -348,7 +348,7 @@
 
 
 
-  <section class="u-backlink u-clearfix u-grey-80">
+  <section class="u-backlink u-clearfix u-grey-80" style="margin-top:3em">
     <a class="u-link" href="{% url 'Home' %}" target="">
       <span>Redwood Civic Center (Reservation System)</span>
     </a>

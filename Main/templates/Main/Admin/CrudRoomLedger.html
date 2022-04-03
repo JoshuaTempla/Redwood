@@ -12,7 +12,7 @@
   <title>Redwood Civic Center</title>
   <link rel="icon"href="{% static 'images/favicon.ico' %}">
   <link rel="stylesheet" href="{% static 'css/nicepage_admin.css' %}" media="screen">
-  <link rel="stylesheet" href="{% static 'css/CrudRoomTypes.css' %}" media="screen">
+  <link rel="stylesheet" href="{% static 'css/CrudRoomLedger.css' %}" media="screen">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
@@ -30,7 +30,11 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
   <script>
     $(document).ready(function () {
-      $('#book_list_datatable').DataTable();
+      $('#room_ledger_datatable').DataTable();
+    });
+
+    $(document).ready(function () {
+      $('#sql_datatable').DataTable();
     });
   </script>
 
@@ -84,7 +88,7 @@
           <ul class="u-custom-font u-font-roboto u-nav u-spacing-40 u-unstyled u-nav-1">
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-hover-grey-90"
-                href="{% url 'CrudRoomTypes' %}" style="padding: 6px 20px;">Room Types</a>
+                href="{% url 'CrudRoomLedger' %}" style="padding: 6px 20px;">Room Ledger</a>
             </li>
             <li class="u-nav-item"><a
                 class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-hover-grey-90"
@@ -97,8 +101,8 @@
             <div class="u-inner-container-layout u-sidenav-overflow">
               <div class="u-menu-close"></div>
               <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'CrudRoomTypes' %}"
-                    style="padding: 6px 20px;">Room Types</a>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'CrudRoomLedger' %}"
+                    style="padding: 6px 20px;">Room Ledger</a>
                 </li>
                 <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'CrudReservation' %}"
                     style="padding: 6px 20px;">Reservation Ledger</a>
@@ -160,11 +164,15 @@
   </header>
   <section class="u-align-center u-clearfix u-section-1" id="carousel_97d7">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <a data-bs-toggle="modal" href="#" data-bs-target="#addRoomType"
-        class="u-border-none u-btn u-btn-round u-button-style u-palette-1-dark-1 u-radius-6 u-btn-1">Add Room Type</a>
+      <a data-bs-toggle="modal" href="#" data-bs-target="#addRoomLedger"
+        class="u-border-none u-btn u-btn-round u-button-style u-palette-1-dark-1 u-radius-6 u-btn-1">Add Room Ledger</a>
       <div class="u-table u-table-responsive u-table-1">
-        <table class="u-table-entity u-table-entity-1">
+        <table id="room_ledger_datatable" class="u-table-entity u-table-entity-1">
           <colgroup>
+            <col width="30%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
             <col width="20%">
             <col width="20%">
             <col width="20%">
@@ -173,26 +181,32 @@
           </colgroup>
           <thead class="u-align-center u-custom-color-12 u-custom-font u-font-roboto u-table-header u-table-header-1">
             <tr style="height: 48px;">
+              <th class="u-align-center u-table-cell u-table-cell-1">Room Ledger Id</th>
+              <th class="u-align-center u-table-cell u-table-cell-1">Date of Use</th>
+              <th class="u-align-center u-table-cell u-table-cell-1">Room Number</th>
               <th class="u-align-center u-table-cell u-table-cell-1">Room Type</th>
-              <th class="u-align-center u-table-cell u-table-cell-2">Morning (9-12am)</th>
-              <th class="u-align-center u-table-cell u-table-cell-3">Afternoon (1-5pm)</th>
-              <th class="u-align-center u-table-cell u-table-cell-4">Evening (6-10pm)</th>
+              <th class="u-align-center u-table-cell u-table-cell-2">Morning</th>
+              <th class="u-align-center u-table-cell u-table-cell-3">Afternoon</th>
+              <th class="u-align-center u-table-cell u-table-cell-4">Evening</th>
               <th class="u-align-center u-table-cell u-table-cell-5">Action</th>
             </tr>
           </thead>
           <tbody class="u-align-center u-table-body">
-            {% for room_type in room_types %}
+            {% for room_ledger in room_ledgers %}
             <tr style="height: 55px;">
-              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{room_type.room_type}}</td>
-              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">${{room_type.morning}}</td>
-              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">${{room_type.afternoon}}</td>
-              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">${{room_type.evening}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{room_ledger.room_ledger_id}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{room_ledger.date_of_use}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{room_ledger.room_number}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{room_ledger.room_type}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{room_ledger.morning}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{room_ledger.afternoon}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{room_ledger.evening}}</td>
               <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell"
                 style="text-align: center; white-space:nowrap;">
-                <a data-bs-toggle="modal" href="#" data-bs-target="#viewModal-{{room_type.room_type}}"
+                <a data-bs-toggle="modal" href="#" data-bs-target="#viewModal-{{room_ledger.room_ledger_id}}"
                   class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-6 u-text-white u-btn-2"
                   style="margin-right: 5px; margin-top: 25%;">Update</a>
-                <a data-bs-toggle="modal" href="#" data-bs-target="#deleteModal-{{room_type.room_type}}"
+                <a data-bs-toggle="modal" href="#" data-bs-target="#deleteModal-{{room_ledger.room_ledger_id}}"
                   class="u-border-none u-btn u-btn-round u-button-style u-palette-2-base u-radius-6 u-text-white u-btn-5"
                   style="margin-right: 5px; margin-top: 25%; ">Delete</a>
               </td>
@@ -204,36 +218,91 @@
     </div>
   </section>
 
-  {% for room_type in room_types %}
+  <section class="u-align-center u-clearfix u-section-1" id="carousel_97d7" style="margin-top:5em">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <div class="u-table u-table-responsive u-table-1">
+        <table id="sql_datatable" class="u-table-entity u-table-entity-1">
+          <colgroup>
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="30%">
+          </colgroup>
+          <thead class="u-align-center u-custom-color-12 u-custom-font u-font-roboto u-table-header u-table-header-1">
+            <tr style="height: 48px;">
+              <th class="u-align-center u-table-cell u-table-cell-1">Date of Use</th>
+              <th class="u-align-center u-table-cell u-table-cell-1">Room Number</th>
+              <th class="u-align-center u-table-cell u-table-cell-1">Room Type</th>
+              <th class="u-align-center u-table-cell u-table-cell-2">Morning</th>
+              <th class="u-align-center u-table-cell u-table-cell-3">Afternoon</th>
+              <th class="u-align-center u-table-cell u-table-cell-4">Evening</th>
+            </tr>
+          </thead>
+          <tbody class="u-align-center u-table-body">
+            {% for sql_ledger in sql_ledgers %}
+            <tr style="height: 55px;">
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{sql_ledger.date_of_use}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{sql_ledger.room_number}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{sql_ledger.room_type}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{sql_ledger.morning}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{sql_ledger.afternoon}}</td>
+              <td class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-table-cell">{{sql_ledger.evening}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  {% for room_ledger in room_ledgers %}
   <!-- Modal -->
-  <div class="modal fade" id="viewModal-{{room_type.room_type}}" data-bs-backdrop="static" data-bs-keyboard="false"
+  <div class="modal fade" id="viewModal-{{room_ledger.room_ledger_id}}" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header text-center">
-          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Update Room Type Page</h5>
+          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Update Room Ledger Page</h5>
         </div>
         <div class="modal-body">
           <form action="" method="POST">
             {% csrf_token %}
             <div class="mb-3">
+              <b><label class="form-label">Room Ledger Id</label></b>
+              <input type="number" class="form-control" id="room_ledger_id" name="room_ledger_id" value="{{room_ledger.room_ledger_id}}" 
+                placeholder="Incremented" readonly>
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Date of Use</label></b>
+              <input type="date" class="form-control" id="date_of_use" name="date_of_use" value="{{room_ledger.date_of_use}}" 
+                placeholder="" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Room Number</label></b>
+              <input type="number" class="form-control" id="room_number" name="room_number" value="{{room_ledger.room_number}}" 
+                placeholder="" required="">
+            </div>
+            <div class="mb-3">
               <b><label class="form-label">Room Type</label></b>
-              <input type="text" class="form-control"  name="room_type" value="{{room_type.room_type}}"
+              <input type="text" class="form-control"  name="room_type" value="{{room_ledger.room_type}}"
                 placeholder="Room Type" required="" readonly>
             </div>
             <div class="mb-3">
-              <b><label class="form-label">Morning Price</label></b>
-              <input type="number" class="form-control"  name="morning" value="{{room_type.morning}}"
+              <b><label class="form-label">Morning</label></b>
+              <input type="number" class="form-control"  name="morning" value="{{room_ledger.morning}}"
                 placeholder="Morning Price" required="">
             </div>
             <div class="mb-3">
-              <b><label class="form-label">Afternoon Price</label></b>
-              <input type="number" class="form-control"  name="afternoon" value="{{room_type.afternoon}}"
+              <b><label class="form-label">Afternoon</label></b>
+              <input type="number" class="form-control"  name="afternoon" value="{{room_ledger.afternoon}}"
                 placeholder="Afternoon Price" required="">
             </div>
             <div class="mb-3">
-              <b><label class="form-label">Evening Price</label></b>
-              <input type="number" class="form-control"  name="evening" value="{{room_type.evening}}"
+              <b><label class="form-label">Evening</label></b>
+              <input type="number" class="form-control"  name="evening" value="{{room_ledger.evening}}"
                 placeholder="Evening Price" required="">
             </div>
             <div class="modal-footer u-align-center u-form-group u-form-submit">
@@ -260,20 +329,20 @@
   </div>
   {% endfor %}
 
-  {% for room_type in room_types %}
-  <div class="modal fade" id="deleteModal-{{room_type.room_type}}" data-bs-backdrop="static" data-bs-keyboard="false"
+  {% for room_ledger in room_ledgers %}
+  <div class="modal fade" id="deleteModal-{{room_ledger.room_ledger_id}}" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header text-center">
-          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Delete Room Type</h5>
+          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Delete Room Ledger</h5>
         </div>
         <div class="modal-body">
           <form action="" method="POST">
             {% csrf_token %}
             <div class="mb-3">
-              <b><label class="form-label">Do you want to delete this room?</label></b>
-              <input type="text" class="form-control" id="room_type" name="room_type" value="{{room_type.room_type}}"
+              <b><label class="form-label">Do you want to delete this room ledger?</label></b>
+              <input type="text" class="form-control" id="room_ledger_id" name="room_ledger_id" value="{{room_ledger.room_ledger_id}}"
                 placeholder="Room Type" required="" readonly>
             </div>
             <div class="modal-footer u-align-center u-form-group u-form-submit">
@@ -290,39 +359,54 @@
 
 
   <!-- Modal -->
-  <div class="modal fade" id="addRoomType" data-bs-backdrop="static" data-bs-keyboard="false"
+  <div class="modal fade" id="addRoomLedger" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header text-center">
-          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Add Room Type Page</h5>
+          <h5 class="modal-title w-100" id="staticBackdropLabel font-weight-bold py-2">Add Room Ledger Page</h5>
         </div>
         <div class="modal-body">
           <form action="" method="POST">
             {% csrf_token %}
+            <div class="mb-3">
+              <b><label class="form-label">Room Ledger Id</label></b>
+              <input type="number" class="form-control" id="room_ledger_id" name="room_ledger_id" 
+                placeholder="Incremented" readonly>
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Date of Use</label></b>
+              <input type="date" class="form-control" id="date_of_use" name="date_of_use" 
+                placeholder="" required="">
+            </div>
+            <div class="mb-3">
+              <b><label class="form-label">Room Number</label></b>
+              <input type="number" class="form-control" id="room_number" name="room_number" 
+                placeholder="" required="">
+            </div>
             <div class="mb-3">
               <b><label class="form-label">Room Type</label></b>
               <input type="text" class="form-control" id="room_type" name="room_type" 
                 placeholder="" required="">
             </div>
             <div class="mb-3">
-              <b><label class="form-label">Morning Price</label></b>
+              <b><label class="form-label">Morning</label></b>
               <input type="number" class="form-control" id="morning" name="morning" 
                 placeholder="" required="">
             </div>
             <div class="mb-3">
-              <b><label class="form-label">Afternoon Price</label></b>
+              <b><label class="form-label">Afternoon</label></b>
               <input type="number" class="form-control" id="afternoon" name="afternoon" 
                 placeholder="" required="">
             </div>
             <div class="mb-3">
-              <b><label class="form-label">Evening Price</label></b>
+              <b><label class="form-label">Evening</label></b>
               <input type="number" class="form-control" id="evening" name="evening" 
                 placeholder="" required="">
             </div>
             <div class="modal-footer u-align-center u-form-group u-form-submit">
               <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-info" name="btnAddRoomType">Add Room</button>
+              <button type="submit" class="btn btn-info" name="btnAddRoomLedger">Add Room</button>
               {% if messages %}
               {% for result in messages %}
               <script>
@@ -343,9 +427,7 @@
     </div>
   </div>
 
-
-
-  <section class="u-backlink u-clearfix u-grey-80">
+  <section class="u-backlink u-clearfix u-grey-80" style="margin-top:3em">
     <a class="u-link" href="{% url 'Home' %}" target="">
       <span>Redwood Civic Center (Reservation System)</span>
     </a>
@@ -354,7 +436,7 @@
     </p>
     <a class="u-link" href="{% url 'About' %}" target="">
       <span>Templa, Molina and Anoos</span>
-    </a>.
+    </a>
   </section>
 </body>
 

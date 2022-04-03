@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redwood Civic Center</title>
+  <link rel="icon" href="{% static 'images/favicon.ico' %}">
+  <link rel="stylesheet" href="{% static 'css/Reservation.css' %}">
+  <script src="{% static 'js/Reservation.js' %}" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+</head>
+
+<body>
+  <!-- multistep form -->
+  <form id="multistepsform" method="POST" action="">
+    {% csrf_token %}
+    <!-- progressbar -->
+    <ul id="progressbar">
+        <li class="active">Personal Details</li>
+        <li class="">Date and Room</li>
+        <li class="">Time Slots</li>
+        <li>Summary</li>
+    </ul>
+    <fieldset style="margin-bottom:5em">
+      <h2 class="fs-title">Personal Details</h2>
+      <h3 class="fs-subtitle">We will never sell it</h3>
+      <input type="text" name="name" placeholder="Name" />
+      <input type="email" name="email" placeholder="Email" />
+      <input type="number" name="phone" placeholder="Phone" />
+      <textarea type="address" name="address" placeholder="Address" ></textarea>
+      <input type="submit" name="btnAddApplicant" class="next action-button" value="Next" />
+    </fieldset>
+  </form>
+</body>
+</html>
