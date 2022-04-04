@@ -100,28 +100,6 @@ def reservation(request):
     user_chosen_room = request.GET['room']
     user_chosen_date = request.GET['date']
 
-<<<<<<< HEAD
-    reservation = RoomLedger.objects.filter(date_of_use = user_chosen_date).filter(room_number = user_chosen_room).filter(room_type = current_room)
-    room_prices = Room_Type.objects.filter(room_type = current_room)
-    print(reservation)
-
-    if not reservation :
-        Ledger = RoomLedger()
-        Ledger.date_of_use = user_chosen_date
-        Ledger.room_number = user_chosen_room
-        Ledger.room_type = current_room
-        Ledger.morning = 0                                         
-        Ledger.afternoon= 0
-        Ledger.evening = 0
-        Ledger.save()   
-
-        print('Added')
-        reservation = RoomLedger.objects.filter(date_of_use = user_chosen_date).filter(room_number = user_chosen_room).filter(room_type = current_room)
-        room_prices = Room_Type.objects.filter(room_type = current_room)
-        
-    else:
-        print('Hatdog')
-=======
     reservation = RoomLedger.objects.raw('SELECT room_ledger_id, date_of_use, room_number, room_type, morning, afternoon, evening FROM main_roomledger WHERE date_of_use = %s AND room_number = %s AND room_type = %s', [
                                          user_chosen_date, user_chosen_room, current_room])
 
@@ -189,7 +167,6 @@ def reservation(request):
                         evening=add_reservation.reservation_number)
                 else:
                     print("No usage fee to be display")
->>>>>>> main
 
     if request.method == "POST":
         if 'previousDate' in request.POST:
@@ -198,10 +175,6 @@ def reservation(request):
     context = {'current_room': current_room, 'room_types': room_types,
                'date': user_chosen_date,  'room_ledger': room_ledger, 'room': user_chosen_room, 'reservation': reservation}
 
-<<<<<<< HEAD
-           
-=======
->>>>>>> main
     return render(request, 'Main/User/Reservation.html', context)
 
 ################################### End of user pages ###################################
@@ -354,3 +327,37 @@ def crud_rooms(response):
                 messages.success(response, "Room Successfully Added!!!")
 
     return render(response, "Main/Admin/CrudRooms.html", context)
+
+
+def crud_room_type(response):
+
+    room_types = Room_Type.objects.all()
+    context = {"room_types": room_types}
+
+    if response.method == "POST":
+        if 'btnUpdate' in response.POST:
+            room_type = response.POST.get("room_type")
+            morning = response.POST.get("morning")
+            afternoon = response.POST.get("afternoon")
+            evening = response.POST.get("evening")
+            Room_Type.objects.filter(room_type=room_type).update(
+                morning=morning, afternoon=afternoon, evening=evening)
+
+        elif 'btnDelete' in response.POST:
+            room_type = response.POST.get("room_type")
+            Room_Type.objects.filter(room_type=room_type).delete()
+
+        elif 'btnAddRoomType' in response.POST:
+            if response.POST.get('room_type') and response.POST.get('morning') and response.POST.get('afternoon') and response.POST.get('evening'):
+                add_room_type = Room_Type()
+                add_room_type.room_type = response.POST.get('room_type')
+                add_room_type.morning = response.POST.get(
+                    'morning')
+                add_room_type.afternoon = response.POST.get(
+                    'afternoon')
+                add_room_type.evening = response.POST.get(
+                    'evening')
+                add_room_type.save()
+                messages.success(response, "Room Type Successfully Added!!!")
+
+    return render(response, "Main/Admin/CrudRoomTypes.html", context)
