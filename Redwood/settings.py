@@ -94,10 +94,10 @@ WSGI_APPLICATION = 'Redwood.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbRedwood',
-        'USER': 'josh@it342-dbtempla',
-        'PASSWORD': 'JrkTempla09229985336',
-        'HOST': 'it342-dbtempla.postgres.database.azure.com',
+        'NAME': 'Redwood',
+        'USER': 'josh@redwood-db',
+        'PASSWORD': 'Redwood-123',
+        'HOST': 'redwood-db.postgres.database.azure.com',
         'PORT': '5432',
         'OPTIONS': {            
             "sslmode": "require",

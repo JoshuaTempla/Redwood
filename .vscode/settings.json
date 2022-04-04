@@ -1,4 +1,4 @@
 {
-    "appService.defaultWebAppToDeploy": "/subscriptions/8f920466-e762-493a-aa21-1307b8c808cf/resourceGroups/G1_Group10_Templa/providers/Microsoft.Web/sites/Templa-RedwoodCivicCenter",
-    "appService.deploySubpath": "."
+    "appService.deploySubpath": ".",
+    "appService.defaultWebAppToDeploy": "/subscriptions/8f920466-e762-493a-aa21-1307b8c808cf/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/group10-Redwood-Civic-Center"
 }
