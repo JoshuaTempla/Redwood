@@ -327,3 +327,37 @@ def crud_rooms(response):
                 messages.success(response, "Room Successfully Added!!!")
 
     return render(response, "Main/Admin/CrudRooms.html", context)
+
+
+def crud_room_type(response):
+
+    room_types = Room_Type.objects.all()
+    context = {"room_types": room_types}
+
+    if response.method == "POST":
+        if 'btnUpdate' in response.POST:
+            room_type = response.POST.get("room_type")
+            morning = response.POST.get("morning")
+            afternoon = response.POST.get("afternoon")
+            evening = response.POST.get("evening")
+            Room_Type.objects.filter(room_type=room_type).update(
+                morning=morning, afternoon=afternoon, evening=evening)
+
+        elif 'btnDelete' in response.POST:
+            room_type = response.POST.get("room_type")
+            Room_Type.objects.filter(room_type=room_type).delete()
+
+        elif 'btnAddRoomType' in response.POST:
+            if response.POST.get('room_type') and response.POST.get('morning') and response.POST.get('afternoon') and response.POST.get('evening'):
+                add_room_type = Room_Type()
+                add_room_type.room_type = response.POST.get('room_type')
+                add_room_type.morning = response.POST.get(
+                    'morning')
+                add_room_type.afternoon = response.POST.get(
+                    'afternoon')
+                add_room_type.evening = response.POST.get(
+                    'evening')
+                add_room_type.save()
+                messages.success(response, "Room Type Successfully Added!!!")
+
+    return render(response, "Main/Admin/CrudRoomTypes.html", context)

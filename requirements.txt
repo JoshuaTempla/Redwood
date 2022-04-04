@@ -1,0 +1,4 @@
+django
+whitenoise
+psycopg2-binary
+django-crispy-forms

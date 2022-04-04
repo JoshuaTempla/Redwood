@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-f+ni$rwaa@v2ah$fh7l1ra87-!%f#r&h^kr$t50$@ac5rl^-4y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['group10-redwood.azurewebsites.net']
 
 
 # Application definition
@@ -39,19 +39,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Main.apps.MainConfig'
+    
 ]
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = BASE_DIR/'staticfiles'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleWare',
 ]
 
 ROOT_URLCONF = 'Redwood.urls'
@@ -88,14 +93,14 @@ WSGI_APPLICATION = 'Redwood.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dbRedwood',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode= 'STRICT_TRANS_TABLES'",
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Redwood',
+        'USER': 'josh@redwood-db',
+        'PASSWORD': 'Redwood-123',
+        'HOST': 'redwood-db.postgres.database.azure.com',
+        'PORT': '5432',
+        'OPTIONS': {            
+            "sslmode": "require",
         },
     }
 }
@@ -138,6 +143,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

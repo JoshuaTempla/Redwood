@@ -10,7 +10,7 @@ from django.conf import settings
 urlpatterns = [
 
     # Start of user pages
-    path('Redwood-Home', views.home, name="Home"),
+    path('', views.home, name="Home"),
     path("Redwood-About", views.about, name="About"),
     path("Redwood-Contact", views.contact, name="Contact"),
     path("Redwood-Rooms", views.rooms, name="Rooms"),
