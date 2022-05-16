@@ -124,8 +124,7 @@ def reservation(request):
             if user_chosen_room and current_room and user_chosen_date and request.POST.get('timeslot') and request.POST.get('email'):
                 add_reservation = Reservation()
                 add_reservation.scheduled_date_of_use = user_chosen_date
-                add_reservation.room_number = Room.objects.get(
-                    room_number=user_chosen_room)
+                add_reservation.room_number = user_chosen_room
                 add_reservation.applicant_email = Applicant.objects.get(
                     applicant_email=request.POST["email"])
                 add_reservation.usage_fee = request.POST.get('timeslot')
@@ -236,10 +235,10 @@ def crud_reservation(response):
 
     reservations = Reservation.objects.all()
     sql_reservations = Reservation.objects.raw(
-        'SELECT reservation_number, room_number_id AS MostBookedRoom, COUNT(room_number_id) as TotalOfReservation FROM main_reservation GROUP BY room_number_id ORDER BY TotalOfReservation DESC LIMIT 1')
+        'SELECT reservation_number, room_number AS MostBookedRoom, COUNT(room_number) as TotalOfReservation FROM main_reservation GROUP BY room_number ORDER BY TotalOfReservation DESC LIMIT 1')
 
     sql_days = Reservation.objects.raw(
-        'SELECT reservation_number, scheduled_date_of_use AS DateOfUse, COUNT(room_number_id) AS NumberOfReservation FROM main_reservation GROUP BY scheduled_date_of_use')
+        'SELECT reservation_number, scheduled_date_of_use AS DateOfUse, COUNT(room_number) AS NumberOfReservation FROM main_reservation GROUP BY scheduled_date_of_use')
 
     context = {"reservations": reservations,
                "sql_reservations": sql_reservations, "sql_days": sql_days}
@@ -264,8 +263,7 @@ def crud_reservation(response):
                 add_reservation = Reservation()
                 add_reservation.applicant_email = Applicant.objects.get(
                     applicant_email=response.POST["applicant_email"])
-                add_reservation.room_number = Room.objects.get(
-                    room_number=response.POST["room_number"])
+                add_reservation.room_number = response.POST('room_number')
                 add_reservation.scheduled_date_of_use = response.POST.get(
                     'scheduled_date_of_use')
                 add_reservation.usage_fee = response.POST.get('usage_fee')
