@@ -27,7 +27,7 @@
       <li class="active">Personal Details</li>
       <li class="active">Date and Room</li>
       <li class="active">Time Slots</li>
-      <li>Summary</li>
+      <li>Usage Fee</li>
     </ul>
     <fieldset>
       <h2 class="fs-title">Available Time slots for type {{room_type.room_type}}</h2>
@@ -87,17 +87,15 @@
       </select>
     </fieldset>
     <fieldset>
-      <h2 class="fs-title">Summary</h2>
-      <h3 class="fs-subtitle">We remind you of the details of your reservation</h3>
+      <h2 class="fs-title">Usage Fee</h2>
+      <h3 class="fs-subtitle">We remind you of the usage fee of your reservation.</h3>
       <h3 class="fs-subtitle">Type of Room: <strong>{{room_type.room_type}}</strong></h3>
       <h3 class="fs-subtitle">Room Number : <strong>{{reservations.room_number}}</strong></h3>
-      <h3 class="fs-subtitle">Date To Be Use: <strong>{{reservations.date_of_use}}</strong></h3>
-      <h3 class="fs-subtitle"><strong>Usage Fees Of The Room Type {{room_type.room_type}}</strong></h3>
-      <h3 class="fs-subtitle">Morning: ${{room_type.morning}} &nbsp; &nbsp; Afternoon: ${{room_type.afternoon}}</h3>
-      <!-- <h3 class="fs-subtitle">Afternoon: ${{room_type.afternoon}}</h3> -->
-      <h3 class="fs-subtitle">Evening: ${{room_type.evening}}</h3>
+      <h3 class="fs-subtitle">Morning: <strong>${{room_type.morning}}</strong> &nbsp; &nbsp; Afternoon: <strong>${{room_type.afternoon}}</strong></h3>
+      <h3 class="fs-subtitle">Evening: <strong>${{room_type.evening}}</strong></h3>
       <h3 class="fs-subtitle"><strong>Please enter your email again for confirmation</strong></h3>
       <input type="email" name="email" placeholder="Email" />
+      <h3 class="fs-subtitle"><strong>Check your email after you make your reservation. Thank you!</strong></h3>
       <input type="button" name="previous" class="previous action-button" value="Previous" />
       <input type="submit" name="btnSubmit" class="action-button" value="Submit" />
       {% endfor %}

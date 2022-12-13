@@ -5,6 +5,7 @@ from .forms import*
 from django.contrib import messages
 from Main.models import Room
 from Main.models import Applicant
+from django.core.mail import send_mail
 
 
 #################################### Start of user pages ###################################
@@ -118,57 +119,71 @@ def reservation(request):
         user_chosen_date, user_chosen_room, current_room])
 
     # Submit the reservation form
-    if 'btnSubmit' in request.POST:
-        if user_chosen_room and current_room and user_chosen_date and request.POST.get('timeslot') and request.POST.get('email'):
-            add_reservation = Reservation()
-            add_reservation.scheduled_date_of_use = user_chosen_date
-            add_reservation.room_number = Room.objects.get(
-                room_number=user_chosen_room)
-            add_reservation.applicant_email = Applicant.objects.get(
-                applicant_email=request.POST["email"])
-            add_reservation.usage_fee = request.POST.get('timeslot')
-            add_reservation.save()
-            messages.success(request, "You have made a reservation!")
-            print("request:::::::", request.POST.get('timeslot'))
-            print(add_reservation.usage_fee)
-            print('Successfully Added an RESERVATION!!!!!!!!!!!!!!!!!!!!!!!')
-
-            room_types = Room_Type.objects.raw(
-                'SELECT room_type, morning, afternoon, evening FROM main_room_type WHERE room_type = %s', [current_room])
-
-            for room_type in room_types:
-                print(room_type.morning)
-                print(request.POST.get('timeslot'))
-                print(room_type.afternoon)
-
-                morning_str = str(room_type.morning)
-                afternoon_str = str(room_type.afternoon)
-                evening_str = str(room_type.evening)
-                user_time_str = str(request.POST.get('timeslot'))
-
-                user_morning = morning_str == user_time_str
-                user_afternoon = afternoon_str == user_time_str
-                user_evening = evening_str == user_time_str
-
-                if morning_str == user_time_str:
-                    print("The usage fee of morning =", user_morning)
-                    print(room_type.morning)
-                    RoomLedger.objects.filter(room_number=user_chosen_room, date_of_use=user_chosen_date).update(
-                        morning=add_reservation.reservation_number)
-                elif afternoon_str == user_time_str:
-                    print("The usage fee of afternoon", user_afternoon)
-                    print(room_type.afternoon)
-                    RoomLedger.objects.filter(room_number=user_chosen_room, date_of_use=user_chosen_date).update(
-                        afternoon=add_reservation.reservation_number)
-                elif evening_str == user_time_str:
-                    print("The usage fee of evening", user_evening)
-                    print(room_type.evening)
-                    RoomLedger.objects.filter(room_number=user_chosen_room, date_of_use=user_chosen_date).update(
-                        evening=add_reservation.reservation_number)
-                else:
-                    print("No usage fee to be display")
-
     if request.method == "POST":
+        if 'btnSubmit' in request.POST:
+            if user_chosen_room and current_room and user_chosen_date and request.POST.get('timeslot') and request.POST.get('email'):
+                add_reservation = Reservation()
+                add_reservation.scheduled_date_of_use = user_chosen_date
+                add_reservation.room_number = user_chosen_room
+                add_reservation.applicant_email = Applicant.objects.get(
+                    applicant_email=request.POST["email"])
+                add_reservation.usage_fee = request.POST.get('timeslot')
+                add_reservation.save()
+                messages.success(request, "You have made a reservation!")
+                print("request:::::::", request.POST.get('timeslot'))
+                print(add_reservation.usage_fee)
+                print('Successfully Added an RESERVATION!!!!!!!!!!!!!!!!!!!!!!!')
+
+                room_types = Room_Type.objects.raw(
+                    'SELECT room_type, morning, afternoon, evening FROM main_room_type WHERE room_type = %s', [current_room])
+
+                user_name = Applicant.objects.raw(
+                    'SELECT applicant_email, applicant_name FROM main_applicant WHERE applicant_email = %s', [request.POST.get('email')])
+
+                for room_type in room_types:
+                    print(room_type.morning)
+                    print(request.POST.get('timeslot'))
+                    print(room_type.afternoon)
+
+                    morning_str = str(room_type.morning)
+                    afternoon_str = str(room_type.afternoon)
+                    evening_str = str(room_type.evening)
+                    user_time_str = str(request.POST.get('timeslot'))
+
+                    user_morning = morning_str == user_time_str
+                    user_afternoon = afternoon_str == user_time_str
+                    user_evening = evening_str == user_time_str
+
+                    if morning_str == user_time_str:
+                        print("The usage fee of morning =", user_morning)
+                        print(room_type.morning)
+                        RoomLedger.objects.filter(room_number=user_chosen_room, date_of_use=user_chosen_date).update(
+                            morning=add_reservation.reservation_number)
+                    elif afternoon_str == user_time_str:
+                        print("The usage fee of afternoon", user_afternoon)
+                        print(room_type.afternoon)
+                        RoomLedger.objects.filter(room_number=user_chosen_room, date_of_use=user_chosen_date).update(
+                            afternoon=add_reservation.reservation_number)
+                    elif evening_str == user_time_str:
+                        print("The usage fee of evening", user_evening)
+                        print(room_type.evening)
+                        RoomLedger.objects.filter(room_number=user_chosen_room, date_of_use=user_chosen_date).update(
+                            evening=add_reservation.reservation_number)
+                    else:
+                        print("No usage fee to be display")
+
+                    for user_names in user_name:
+                        reservation_user_name = user_names.applicant_name
+
+                    greeting_string = "Hi" + " " + str(reservation_user_name) + "\n\nYour appointment " + " " + "(Reservation ID:" + str(
+                        add_reservation.reservation_number) + ")" + " " + "has been confirmed with Redwood Civic Center Team. Here are the details of your reservation:" + "\n\n\n\nRoom Type:" + " " + str(current_room) + "\nDate Of Use:" + " " + str(add_reservation.scheduled_date_of_use) + "\nRoom Number:" + " " + str(add_reservation.room_number) + "\nUsage Fee:" + " $" + str(add_reservation.usage_fee) + "\n\n\n\nThe place is located in Ubos Pundok, Basak Pardo, Cebu City across Holy Cross Parish Church. Please take a screenshot of this email and present it to the receptionist once you arrived. Contact us via email(redwoodcivic.center@gmail.com) if you want to cancel your reservation. \n\nThank you  and have a great day!"
+                    print(greeting_string)
+
+                send_mail(
+                    'Reservation Details', greeting_string, 'Redwood Civic Center',
+                    [add_reservation.applicant_email]
+                )
+
         if 'previousDate' in request.POST:
             return redirect(date)
 
@@ -220,10 +235,10 @@ def crud_reservation(response):
 
     reservations = Reservation.objects.all()
     sql_reservations = Reservation.objects.raw(
-        'SELECT reservation_number, room_number_id AS MostBookedRoom, COUNT(room_number_id) as TotalOfReservation FROM main_reservation GROUP BY room_number_id ORDER BY TotalOfReservation DESC LIMIT 1')
+        'SELECT reservation_number, room_number AS MostBookedRoom, COUNT(room_number) as TotalOfReservation FROM main_reservation GROUP BY room_number ORDER BY TotalOfReservation DESC LIMIT 1')
 
     sql_days = Reservation.objects.raw(
-        'SELECT reservation_number, scheduled_date_of_use AS DateOfUse, COUNT(room_number_id) AS NumberOfReservation FROM main_reservation GROUP BY scheduled_date_of_use')
+        'SELECT reservation_number, scheduled_date_of_use AS DateOfUse, COUNT(room_number) AS NumberOfReservation FROM main_reservation GROUP BY scheduled_date_of_use')
 
     context = {"reservations": reservations,
                "sql_reservations": sql_reservations, "sql_days": sql_days}
@@ -248,8 +263,7 @@ def crud_reservation(response):
                 add_reservation = Reservation()
                 add_reservation.applicant_email = Applicant.objects.get(
                     applicant_email=response.POST["applicant_email"])
-                add_reservation.room_number = Room.objects.get(
-                    room_number=response.POST["room_number"])
+                add_reservation.room_number = response.POST('room_number')
                 add_reservation.scheduled_date_of_use = response.POST.get(
                     'scheduled_date_of_use')
                 add_reservation.usage_fee = response.POST.get('usage_fee')
@@ -327,3 +341,37 @@ def crud_rooms(response):
                 messages.success(response, "Room Successfully Added!!!")
 
     return render(response, "Main/Admin/CrudRooms.html", context)
+
+
+def crud_room_type(response):
+
+    room_types = Room_Type.objects.all()
+    context = {"room_types": room_types}
+
+    if response.method == "POST":
+        if 'btnUpdate' in response.POST:
+            room_type = response.POST.get("room_type")
+            morning = response.POST.get("morning")
+            afternoon = response.POST.get("afternoon")
+            evening = response.POST.get("evening")
+            Room_Type.objects.filter(room_type=room_type).update(
+                morning=morning, afternoon=afternoon, evening=evening)
+
+        elif 'btnDelete' in response.POST:
+            room_type = response.POST.get("room_type")
+            Room_Type.objects.filter(room_type=room_type).delete()
+
+        elif 'btnAddRoomType' in response.POST:
+            if response.POST.get('room_type') and response.POST.get('morning') and response.POST.get('afternoon') and response.POST.get('evening'):
+                add_room_type = Room_Type()
+                add_room_type.room_type = response.POST.get('room_type')
+                add_room_type.morning = response.POST.get(
+                    'morning')
+                add_room_type.afternoon = response.POST.get(
+                    'afternoon')
+                add_room_type.evening = response.POST.get(
+                    'evening')
+                add_room_type.save()
+                messages.success(response, "Room Type Successfully Added!!!")
+
+    return render(response, "Main/Admin/CrudRoomTypes.html", context)

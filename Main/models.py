@@ -1,7 +1,3 @@
-from pyexpat import model
-from statistics import mode
-from tkinter import CASCADE
-from tkinter.tix import Tree
 from django.db import models
 from django.db.models.base import Model
 #from pyrsistent import T
@@ -44,15 +40,12 @@ class Room(models.Model):
     class meta:
         db_table = 'tblroom'
 
-    # def __str__(self):
-        # return self.room_number
-
 
 class Reservation(models.Model):
     reservation_number = models.AutoField(primary_key=True)
     applicant_email = models.ForeignKey(Applicant, on_delete=models.CASCADE)
-    room_number = models.ForeignKey(Room, on_delete=models.CASCADE)
-    scheduled_date_of_use = models.DateField()
+    room_number = models.IntegerField()
+    scheduled_date_of_use = models.TextField()
     usage_fee = models.FloatField()
 
     class meta:
@@ -61,7 +54,7 @@ class Reservation(models.Model):
 
 class RoomLedger(models.Model):
     room_ledger_id = models.AutoField(primary_key=True)
-    date_of_use = models.DateField()
+    date_of_use = models.TextField()
     room_number = models.IntegerField()
     room_type = models.CharField(max_length=1)
     morning = models.IntegerField()

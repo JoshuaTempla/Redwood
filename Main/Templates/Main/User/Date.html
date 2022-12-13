@@ -18,16 +18,16 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
-  <!-- <script>
+<script>
     $(function () {
         $("#datepicker").datepicker({
             minDate: 0,
             beforeShowDay: function (date) {
-                return [date.getDay() == 2 || date.getDay() == 4, ""]
+                return [date.getDay() == 1 || date.getDay() == 3 || date.getDay() == 5, ""]
             }
         });
     });
-</script> -->
+</script>
 
 <!-- DONT DELETE SCRIPT ABOVE!!! -->
 
@@ -43,7 +43,7 @@
     <li class="active">Personal Details</li>
     <li class="active">Date and Room</li>        
     <li>Time Slots</li>
-    <li>Summary</li>
+    <li>Usage Fee</li>
   </ul>
   <!-- fieldsets -->
   <fieldset>
@@ -52,7 +52,7 @@
   {% endfor %}
     <h3 class="fs-subtitle">Please fill up the following</h3>
     <!-- <input type="date" name="date" placeholder="Date"/> -->
-    <input type="date" id="datepicker" name="date" placeholder="Date">
+    <input type="text" id="datepicker" name="date" placeholder="Date">
     <select name="room" id="room" id="availableRooms"  placeholder="">
       <option selected hidden>Available Rooms</option>
       {% for room_type_in_room in room_type_in_rooms %}
